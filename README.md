@@ -1,2 +1,2 @@
-# Let's have a lunch
+# Let's have a lunch!
 Topjava graduation project
