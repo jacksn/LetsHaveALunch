@@ -1,7 +1,18 @@
 package by.jackson.letshavealunch.repository;
 
-import org.springframework.stereotype.Repository;
+import by.jackson.letshavealunch.model.Restaurant;
 
-@Repository
-public class RestaurantRepository {
+import java.util.List;
+
+public interface RestaurantRepository {
+
+    Restaurant save(Restaurant restaurant);
+
+    // false if not found
+    boolean delete(int id);
+
+    // null if not found
+    Restaurant get(int id);
+
+    List<Restaurant> getAll();
 }

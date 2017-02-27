@@ -17,17 +17,12 @@ import javax.annotation.PostConstruct;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
-/**
- * User: gkislin
- * Date: 10.08.2014
- */
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-mvc.xml",
         "classpath:spring/spring-db.xml"
 })
 @WebAppConfiguration
-//@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 abstract public class AbstractControllerTest {
 

@@ -35,13 +35,6 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     @Transactional
     public boolean delete(int id) {
-
-/*      User ref = em.getReference(User.class, id);
-        em.remove(ref);
-
-        Query<User> query = em.createQuery("DELETE FROM User u WHERE u.id=:id");
-        return query.setParameter("id", id).executeUpdate() != 0;
-*/
         return em.createNamedQuery(User.DELETE).setParameter("id", id).executeUpdate() != 0;
     }
 
