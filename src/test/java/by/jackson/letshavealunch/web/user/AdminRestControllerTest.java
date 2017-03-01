@@ -128,7 +128,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     @Test
     public void testCreateInvalid() throws Exception {
         User expected = new User(null, null, "", "newPass", Role.ROLE_USER, Role.ROLE_ADMIN);
-        ResultActions action = mockMvc.perform(post(REST_URL)
+        mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(expected)))
@@ -141,6 +141,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         TestUtil.print(mockMvc.perform(get(REST_URL)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentListMatcher(ADMIN, USER)));
     }

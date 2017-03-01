@@ -13,8 +13,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
-    @Transactional
     @Modifying
+    @Transactional
     @Query("DELETE FROM Restaurant r WHERE r.id=:id")
     int delete(@Param("id") int id);
 

@@ -30,7 +30,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         Restaurant created = service.save(newRestaurant);
         newRestaurant.setId(created.getId());
         MATCHER.assertCollectionEquals(
-                Arrays.asList(RESTAURANT1, RESTAURANT2, RESTAURANT3, RESTAURANT4, RESTAURANT5, newRestaurant),
+                Arrays.asList(RESTAURANT1, RESTAURANT2, newRestaurant),
                 service.getAll());
     }
 
@@ -42,7 +42,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     public void testDelete() throws Exception {
         service.delete(RESTAURANT1_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT2, RESTAURANT3, RESTAURANT4, RESTAURANT5),
+        MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT2),
                 service.getAll());
     }
 
@@ -65,7 +65,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     public void testGetAll() throws Exception {
         Collection<Restaurant> all = service.getAll();
-        MATCHER.assertCollectionEquals(RESTAURANTS, all);
+        MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT1, RESTAURANT2), all);
     }
 
     @Test
