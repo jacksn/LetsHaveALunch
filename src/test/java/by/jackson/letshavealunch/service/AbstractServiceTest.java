@@ -1,8 +1,10 @@
 package by.jackson.letshavealunch.service;
 
+import by.jackson.letshavealunch.util.JpaUtil;
 import by.jackson.letshavealunch.util.ValidationUtil;
 import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
@@ -31,6 +33,15 @@ abstract public class AbstractServiceTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);
 
     private static StringBuilder results = new StringBuilder();
+
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    @Autowired
+    private JpaUtil jpaUtil;
+
+    @Before
+    public void setUp() throws Exception {
+        jpaUtil.clear2ndLevelHibernateCache();
+    }
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

@@ -3,7 +3,6 @@ package by.jackson.letshavealunch.service;
 import by.jackson.letshavealunch.UserTestData;
 import by.jackson.letshavealunch.model.Role;
 import by.jackson.letshavealunch.model.User;
-import by.jackson.letshavealunch.util.JpaUtil;
 import by.jackson.letshavealunch.util.exception.NotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,14 +19,11 @@ public class UserServiceTest extends AbstractServiceTest {
     @Autowired
     private UserService service;
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    private JpaUtil jpaUtil;
-
+    @Override
     @Before
     public void setUp() throws Exception {
+        super.setUp();
         service.evictCache();
-        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test

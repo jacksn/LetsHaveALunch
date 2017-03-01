@@ -19,18 +19,18 @@ INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100001);
 
 INSERT INTO restaurants (name) VALUES
-  ('Charley G`s Seafood Grill'),
-  ('Cibo`s Bistro & Pizzeria'),
-  ('Cowboy Grub Restaurant'),
-  ('Daily Grind Cafe & Dessertery'),
-  ('Doc`s Pizzeria');
+  ('Charley G`s Seafood Grill'),      -- 100002
+  ('Cibo`s Bistro & Pizzeria'),       -- 100003
+  ('Cowboy Grub Restaurant'),         -- 100004
+  ('Daily Grind Cafe & Dessertery'),  -- 100005
+  ('Doc`s Pizzeria');                 -- 100006
 
 INSERT INTO menus (RESTAURANT_ID, DATETIME, DISH, PRICE) VALUES
-  (100002, now(), 'Grilled Apricot & Basil Horse', 92.77),
-  (100002, now(), 'Slow-Cooked Ginger Rabbit', 80.85),
-  (100002, now(), 'Thermal-Cooked Saffron & Shallot Salmon', 23),
-  (100002, now(), 'Smoked Mint & Berry Crocodile', 80.86),
-  (100002, now(), 'Cooked Dark Beer Winter Greens', 95.40),
+  (100002, now(), 'Grilled Apricot & Basil Horse', 92.77),            -- 100007
+  (100002, now(), 'Slow-Cooked Ginger Rabbit', 80.85),                -- 100008
+  (100002, now(), 'Thermal-Cooked Saffron & Shallot Salmon', 23),     -- 100009
+  (100002, now(), 'Smoked Mint & Berry Crocodile', 80.86),            -- 100010
+  (100002, now(), 'Cooked Dark Beer Winter Greens', 95.40),           -- 100011
   (100002, now(), 'Marinated Fennel & Lemon Forest Mushrooms', 69.13),
   (100003, now(), 'Lime and Chestnut Pie', 99.76),
   (100003, now(), 'Pecan and Avocado Custard', 79.17),

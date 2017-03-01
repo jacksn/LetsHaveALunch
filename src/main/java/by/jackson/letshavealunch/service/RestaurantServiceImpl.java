@@ -6,6 +6,7 @@ import by.jackson.letshavealunch.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -15,6 +16,7 @@ import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
+    private static final Sort SORT_NAME = new Sort("name");
 
     @Autowired
     private RestaurantRepository repository;
@@ -29,7 +31,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+        checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
     @Override
@@ -40,7 +42,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Cacheable("restaurants")
     @Override
     public List<Restaurant> getAll() {
-        return repository.getAll();
+        return repository.findAll(SORT_NAME);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
