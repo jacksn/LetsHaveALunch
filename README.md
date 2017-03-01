@@ -13,3 +13,19 @@ A voting system for deciding where to have lunch.
     - If it is after 11:00 then it is too late, vote can't be changed
 
 Each restaurant provides new menu each day.
+
+Used tools, libraries and frameworks:
+ <a href="http://maven.apache.org/">Maven</a>,
+ <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
+ <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
+ <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
+ <a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security Test</a>,
+ <a href="http://hibernate.org/orm/">Hibernate ORM</a>,
+ <a href="http://hibernate.org/validator/">Hibernate Validator</a>,
+ <a href="http://www.slf4j.org/">SLF4J</a>,
+ <a href="https://github.com/FasterXML/jackson">Json Jackson</a>,
+ <a href="http://ehcache.org">Ehcache</a>,
+ <a href="http://hsqldb.org//">HSQLDB</a>,
+ <a href="http://junit.org/">JUnit</a>,
+ <a href="http://hamcrest.org/JavaHamcrest/">Hamcrest</a>,
+ <a href="http://tomcat.apache.org/">Apache Tomcat</a>.
