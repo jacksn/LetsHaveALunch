@@ -4,15 +4,16 @@ import by.jackson.letshavealunch.AuthorizedUser;
 import by.jackson.letshavealunch.model.User;
 import by.jackson.letshavealunch.repository.UserRepository;
 import by.jackson.letshavealunch.to.UserTo;
+import by.jackson.letshavealunch.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import by.jackson.letshavealunch.util.exception.NotFoundException;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 
 @Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
+    private static final Sort SORT_NAME_EMAIL = new Sort("name", "email");
 
     @Autowired
     private UserRepository repository;
@@ -36,13 +38,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Override
-    public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+    public void delete(int id) throws NotFoundException{
+        checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
     @Override
     public User get(int id) throws NotFoundException {
-        return checkNotFoundWithId(repository.get(id), id);
+        return checkNotFoundWithId(repository.findOne(id), id);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Cacheable("users")
     @Override
     public List<User> getAll() {
-        return repository.getAll();
+        return repository.findAll(SORT_NAME_EMAIL);
     }
 
     @CacheEvict(value = "users", allEntries = true)
