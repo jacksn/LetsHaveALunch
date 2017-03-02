@@ -3,7 +3,7 @@ package by.jackson.letshavealunch.repository;
 import by.jackson.letshavealunch.model.Vote;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 public interface VoteRepository {
 
@@ -11,10 +11,10 @@ public interface VoteRepository {
     Vote get(int id, int userId);
 
     // ORDERED dateTime
-    Collection<Vote> getAll(int userId);
+    List<Vote> getAll(int userId);
 
     // ORDERED dateTime
-    Collection<Vote> getByDate(LocalDate date, int userId);
+    List<Vote> getByDate(LocalDate date, int userId);
 
     // null if updated Vote do not belong to userId
     Vote save(Vote Vote, int userId);

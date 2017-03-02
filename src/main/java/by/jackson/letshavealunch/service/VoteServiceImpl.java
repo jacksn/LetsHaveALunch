@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 
@@ -23,13 +23,13 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Collection<Vote> getByDate(LocalDate date, int userId) {
+    public List<Vote> getByDate(LocalDate date, int userId) {
         Assert.notNull(date, "date must not be null");
         return repository.getByDate(date, userId);
     }
 
     @Override
-    public Collection<Vote> getAll(int userId) {
+    public List<Vote> getAll(int userId) {
         return repository.getAll(userId);
     }
 

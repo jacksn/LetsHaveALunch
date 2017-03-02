@@ -4,14 +4,14 @@ import by.jackson.letshavealunch.model.Vote;
 import by.jackson.letshavealunch.util.exception.NotFoundException;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 public interface VoteService {
     Vote get(int id, int userId) throws NotFoundException;
 
-    Collection<Vote> getByDate(LocalDate date, int userId);
+    List<Vote> getByDate(LocalDate date, int userId);
 
-    Collection<Vote> getAll(int userId);
+    List<Vote> getAll(int userId);
 
     Vote save(Vote vote, int userId);
 
