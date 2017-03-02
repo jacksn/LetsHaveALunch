@@ -1,20 +1,41 @@
 package by.jackson.letshavealunch.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "votes")
 public class Vote extends BaseEntity {
-    @ManyToOne
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    @ManyToOne
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
     private Restaurant restaurant;
 
-    @Column(name = "datetime", columnDefinition = "timestamp default now()")
-    private LocalDateTime dateTime = LocalDateTime.now();
+    @NotNull
+    @Column(name = "date", columnDefinition = "date default now()")
+    private LocalDate date = LocalDate.now();
 
+    public Vote() {
+    }
+
+    public Vote(Restaurant restaurant) {
+        this(null, restaurant, LocalDate.now());
+    }
+
+    public Vote(Restaurant restaurant, LocalDate date) {
+        this(null, restaurant, date);
+    }
+
+    public Vote(Integer id, Restaurant restaurant, LocalDate date) {
+        super(id);
+        this.restaurant = restaurant;
+        this.date = date;
+    }
 
     public User getUser() {
         return user;
@@ -32,11 +53,11 @@ public class Vote extends BaseEntity {
         this.restaurant = restaurant;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
