@@ -13,11 +13,11 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
 
-    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.date DESC")
+    @Query("SELECT v FROM Vote v WHERE v.user.id = :userId ORDER BY v.date DESC")
     List<Vote> getAll(@Param("userId") int userId);
 
-    @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT v from Vote v WHERE v.user.id=:userId AND v.date=:date ORDER BY v.date DESC")
+    //@SuppressWarnings("JpaQlInspection")
+    @Query("SELECT v from Vote v WHERE v.user.id = :userId AND v.date = :date ORDER BY v.date DESC")
     List<Vote> getByDate(@Param("date") LocalDate date, @Param("userId") int userId);
 
 //    @Query("SELECT v FROM Vote v JOIN FETCH v.user WHERE v.id = ?1 and v.user.id = ?2")
@@ -28,7 +28,6 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Vote v WHERE v.id=:id AND v.user.id=:userId")
+    @Query("DELETE FROM Vote v WHERE v.id = :id AND v.user.id = :userId")
     int delete(@Param("id") int id, @Param("userId") int userId);
-
 }

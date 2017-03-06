@@ -5,5 +5,5 @@ log
 *.patch
 !*.sql
 !to
-*.md
 !README.md
+/graduation.md

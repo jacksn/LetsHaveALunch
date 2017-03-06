@@ -7,19 +7,19 @@ import java.util.List;
 
 public interface VoteRepository {
 
-    // null if Vote do not belong to userId
+    // null if Vote does not belong to userId
     Vote get(int id, int userId);
 
-    // ORDERED dateTime
+    // ORDERED by date
     List<Vote> getAll(int userId);
 
-    // ORDERED dateTime
+    // ORDERED by date
     List<Vote> getByDate(LocalDate date, int userId);
 
-    // null if updated Vote do not belong to userId
+    // null if updated Vote does not belong to userId
     Vote save(Vote Vote, int userId);
 
-    // false if Vote do not belong to userId
+    // false if Vote does not belong to userId
     boolean delete(int id, int userId);
 
 //    default Vote getWithUser(int id, int userId) {
