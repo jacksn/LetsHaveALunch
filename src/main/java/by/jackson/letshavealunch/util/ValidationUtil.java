@@ -1,6 +1,6 @@
 package by.jackson.letshavealunch.util;
 
-import by.jackson.letshavealunch.HasId;
+import by.jackson.letshavealunch.WithId;
 import by.jackson.letshavealunch.util.exception.NotFoundException;
 
 public class ValidationUtil {
@@ -26,13 +26,13 @@ public class ValidationUtil {
         }
     }
 
-    public static void checkNew(HasId bean) {
+    public static void checkNew(WithId bean) {
         if (!bean.isNew()) {
             throw new IllegalArgumentException(bean + " must be new (id=null)");
         }
     }
 
-    public static void checkIdConsistent(HasId bean, int id) {
+    public static void checkIdConsistent(WithId bean, int id) {
 //      http://stackoverflow.com/a/32728226/548473
         if (bean.isNew()) {
             bean.setId(id);

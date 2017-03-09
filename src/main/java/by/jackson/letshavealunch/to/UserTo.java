@@ -1,5 +1,6 @@
 package by.jackson.letshavealunch.to;
 
+import by.jackson.letshavealunch.WithId;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -7,8 +8,10 @@ import org.hibernate.validator.constraints.SafeHtml;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-public class UserTo extends BaseTo implements Serializable {
+public class UserTo implements WithId, Serializable {
     private static final long serialVersionUID = 0;
+
+    private Integer id;
 
     @NotBlank
     @SafeHtml
@@ -27,10 +30,20 @@ public class UserTo extends BaseTo implements Serializable {
     }
 
     public UserTo(Integer id, String name, String email, String password) {
-        super(id);
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPassword() {

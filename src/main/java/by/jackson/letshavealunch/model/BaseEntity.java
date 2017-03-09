@@ -1,13 +1,13 @@
 package by.jackson.letshavealunch.model;
 
-import by.jackson.letshavealunch.HasId;
+import by.jackson.letshavealunch.WithId;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public class BaseEntity implements HasId {
+public class BaseEntity implements WithId {
     public static final int START_SEQ = 100000;
 
     @Id

@@ -1,6 +1,6 @@
 package by.jackson.letshavealunch;
 
-public interface HasId {
+public interface WithId {
     Integer getId();
 
     void setId(Integer id);
