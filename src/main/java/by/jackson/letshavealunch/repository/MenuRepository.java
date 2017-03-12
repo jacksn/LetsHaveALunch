@@ -1,6 +1,6 @@
 package by.jackson.letshavealunch.repository;
 
-import by.jackson.letshavealunch.model.Restaurant;
+import by.jackson.letshavealunch.model.Menu;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,22 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
+public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Restaurant r WHERE r.id=:id")
+    @Query("DELETE FROM Menu d WHERE d.id=:id")
     int delete(@Param("id") int id);
 
     @Override
     @Transactional
-    Restaurant save(Restaurant restaurant);
+    Menu save(Menu menu);
 
     @Override
-    Restaurant findOne(Integer id);
+    Menu findOne(Integer id);
 
     @Override
-    List<Restaurant> findAll(Sort sort);
-
-    Restaurant getByName(String name);
+    List<Menu> findAll(Sort sort);
 }
