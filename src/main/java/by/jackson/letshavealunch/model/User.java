@@ -1,7 +1,5 @@
 package by.jackson.letshavealunch.model;
 
-import by.jackson.letshavealunch.View;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -28,7 +26,8 @@ public class User extends NamedEntity {
     @Column(name = "password", nullable = false)
     @NotBlank
     @Length(min = 5)
-    @JsonView(View.REST.class)
+    // TODO: Review
+//    @JsonView(View.REST.class)
     @SafeHtml
     private String password;
 
