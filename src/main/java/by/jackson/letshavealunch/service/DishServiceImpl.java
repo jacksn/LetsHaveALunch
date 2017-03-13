@@ -14,7 +14,7 @@ import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class DishServiceImpl implements DishService {
-    private static final Sort SORT_NAME = new Sort("date,name");
+    private static final Sort SORT_NAME = new Sort("name");
 
     @Autowired
     private DishRepository repository;

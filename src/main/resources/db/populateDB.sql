@@ -19,14 +19,14 @@ INSERT INTO restaurants (name) VALUES
   ('Cibo`s Bistro & Pizzeria');       -- 100003
 
 INSERT INTO dishes (NAME) VALUES
-  ('Grilled Apricot & Basil Horse'),            -- 100004
-  ('Slow-Cooked Ginger Rabbit'),                -- 100005
-  ('Thermal-Cooked Saffron & Shallot Salmon'),  -- 100006
-  ('Smoked Mint & Berry Crocodile'),            -- 100007
-  ('Cooked Dark Beer Winter Greens'),           -- 100008
-  ('Marinated Fennel & Lemon Forest Mushrooms'),-- 100009
-  ('Basted Paprika Pheasant'),                  -- 100010
-  ('Breaded Sour & Cream Quail');               -- 100011
+  ('Basted Paprika Pheasant'),                  -- 100004
+  ('Breaded Sour & Cream Quail'),               -- 100005
+  ('Cooked Dark Beer Winter Greens'),           -- 100006
+  ('Grilled Apricot & Basil Horse'),            -- 100007
+  ('Marinated Fennel & Lemon Forest Mushrooms'),-- 100008
+  ('Slow-Cooked Ginger Rabbit'),                -- 100009
+  ('Smoked Mint & Berry Crocodile'),            -- 100010
+  ('Thermal-Cooked Saffron & Shallot Salmon');  -- 100011
 
 INSERT INTO menus (restaurant_id, date, dish_id, price) VALUES
   (100002, '2017-02-01', 100004, 9.77),   -- 100012

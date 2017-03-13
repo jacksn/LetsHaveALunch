@@ -24,13 +24,12 @@ public class DishTestData {
     public static final int DISH7_ID = START_SEQ + 10;
     public static final int DISH8_ID = START_SEQ + 11;
 
-    public static final Dish DISH1 = new Dish(DISH1_ID, "Grilled Apricot & Basil Horse");             // 100004
-    public static final Dish DISH2 = new Dish(DISH2_ID, "Slow-Cooked Ginger Rabbit");                 // 100005
-    public static final Dish DISH3 = new Dish(DISH3_ID, "Thermal-Cooked Saffron & Shallot Salmon");   // 100006
-    public static final Dish DISH4 = new Dish(DISH4_ID, "Smoked Mint & Berry Crocodile");             // 100007
-    public static final Dish DISH5 = new Dish(DISH5_ID, "Cooked Dark Beer Winter Greens");            // 100008
-    public static final Dish DISH6 = new Dish(DISH6_ID, "Marinated Fennel & Lemon Forest Mushrooms"); // 100009
-    public static final Dish DISH7 = new Dish(DISH7_ID, "Basted Paprika Pheasant");                   // 100010
-    public static final Dish DISH8 = new Dish(DISH8_ID, "Breaded Sour & Cream Quail");                // 100011
-
+    public static final Dish DISH1 = new Dish(DISH1_ID, "Basted Paprika Pheasant");                   // 100004
+    public static final Dish DISH2 = new Dish(DISH2_ID, "Breaded Sour & Cream Quail");                // 100005
+    public static final Dish DISH3 = new Dish(DISH3_ID, "Cooked Dark Beer Winter Greens");            // 100006
+    public static final Dish DISH4 = new Dish(DISH4_ID, "Grilled Apricot & Basil Horse");             // 100007
+    public static final Dish DISH5 = new Dish(DISH5_ID, "Marinated Fennel & Lemon Forest Mushrooms"); // 100008
+    public static final Dish DISH6 = new Dish(DISH6_ID, "Slow-Cooked Ginger Rabbit");                 // 100009
+    public static final Dish DISH7 = new Dish(DISH7_ID, "Smoked Mint & Berry Crocodile");             // 100010
+    public static final Dish DISH8 = new Dish(DISH8_ID, "Thermal-Cooked Saffron & Shallot Salmon");   // 100011
 }
