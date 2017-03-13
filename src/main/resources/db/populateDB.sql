@@ -18,19 +18,29 @@ INSERT INTO restaurants (name) VALUES
   ('Charley G`s Seafood Grill'),      -- 100002
   ('Cibo`s Bistro & Pizzeria');       -- 100003
 
-INSERT INTO menus (RESTAURANT_ID, DATE, DISH, PRICE) VALUES
-  (100002, '2017-02-01', 'Grilled Apricot & Basil Horse', 9.77),             -- 100004
-  (100002, '2017-02-01', 'Slow-Cooked Ginger Rabbit', 8.85),                 -- 100005
-  (100003, '2017-02-01', 'Thermal-Cooked Saffron & Shallot Salmon', 13),     -- 100006
-  (100003, '2017-02-01', 'Smoked Mint & Berry Crocodile', 8.86),             -- 100007
+INSERT INTO dishes (NAME) VALUES
+  ('Grilled Apricot & Basil Horse'),            -- 100004
+  ('Slow-Cooked Ginger Rabbit'),                -- 100005
+  ('Thermal-Cooked Saffron & Shallot Salmon'),  -- 100006
+  ('Smoked Mint & Berry Crocodile'),            -- 100007
+  ('Cooked Dark Beer Winter Greens'),           -- 100008
+  ('Marinated Fennel & Lemon Forest Mushrooms'),-- 100009
+  ('Basted Paprika Pheasant'),                  -- 100010
+  ('Breaded Sour & Cream Quail');               -- 100011
 
-  (100002, '2017-02-02', 'Cooked Dark Beer Winter Greens', 9.40),            -- 100008
-  (100002, '2017-02-02', 'Marinated Fennel & Lemon Forest Mushrooms', 6.13), -- 100009
-  (100003, '2017-02-02', 'Basted Paprika Pheasant', 6.15),                   -- 100010
-  (100003, '2017-02-02', 'Breaded Sour & Cream Quail', 8.35);                -- 100011
+INSERT INTO menus (restaurant_id, date, dish_id, price) VALUES
+  (100002, '2017-02-01', 100004, 9.77),   -- 100012
+  (100002, '2017-02-01', 100005, 8.85),   -- 100013
+  (100003, '2017-02-01', 100006, 13),     -- 100014
+  (100003, '2017-02-01', 100007, 8.86),   -- 100015
 
-INSERT INTO votes (DATE, USER_ID, RESTAURANT_ID) VALUES
-  ('2017-02-01', 100000, 100002), -- 100012 User  Restaurant_100002
-  ('2017-02-01', 100001, 100003), -- 100013 Admin Restaurant_100003
-  ('2017-02-02', 100000, 100003), -- 100014 User  Restaurant_100003
-  ('2017-02-02', 100001, 100003); -- 100015 Admin Restaurant_100002
+  (100002, '2017-02-02', 100008, 9.40),   -- 100016
+  (100002, '2017-02-02', 100009, 6.13),   -- 100017
+  (100003, '2017-02-02', 100010, 6.15),   -- 100018
+  (100003, '2017-02-02', 100011, 8.35);   -- 100019
+
+INSERT INTO votes (date, user_id, restaurant_id) VALUES
+  ('2017-02-01', 100000, 100002), -- 100020 User  Restaurant_100002
+  ('2017-02-01', 100001, 100003), -- 100021 Admin Restaurant_100003
+  ('2017-02-02', 100000, 100003), -- 100022 User  Restaurant_100003
+  ('2017-02-02', 100001, 100003); -- 100023 Admin Restaurant_100002

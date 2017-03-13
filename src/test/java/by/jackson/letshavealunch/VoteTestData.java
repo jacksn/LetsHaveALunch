@@ -13,10 +13,10 @@ public class VoteTestData {
 
     public static final ModelMatcher<Vote> MATCHER = ModelMatcher.of(Vote.class);
 
-    public static final int USER_VOTE1_ID = START_SEQ + 12;
-    public static final int ADMIN_VOTE1_ID = START_SEQ + 13;
-    public static final int USER_VOTE2_ID = START_SEQ + 14;
-    public static final int ADMIN_VOTE2_ID = START_SEQ + 15;
+    public static final int USER_VOTE1_ID  = START_SEQ + 20;
+    public static final int ADMIN_VOTE1_ID = START_SEQ + 21;
+    public static final int USER_VOTE2_ID  = START_SEQ + 22;
+    public static final int ADMIN_VOTE2_ID = START_SEQ + 23;
 
     public static final Vote VOTE1 = new Vote(
             USER_VOTE1_ID,  RestaurantTestData.RESTAURANT1, of(2017, Month.FEBRUARY, 1));
