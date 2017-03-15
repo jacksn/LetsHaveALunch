@@ -1,6 +1,7 @@
 DELETE FROM votes;
-DELETE FROM menus;
+DELETE FROM menu_items;
 DELETE FROM restaurants;
+DELETE FROM dishes;
 DELETE FROM user_roles;
 DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
@@ -28,7 +29,7 @@ INSERT INTO dishes (NAME) VALUES
   ('Smoked Mint & Berry Crocodile'),            -- 100010
   ('Thermal-Cooked Saffron & Shallot Salmon');  -- 100011
 
-INSERT INTO menus (restaurant_id, date, dish_id, price) VALUES
+INSERT INTO menu_items (restaurant_id, date, dish_id, price) VALUES
   (100002, '2017-02-01', 100004, 9.77),   -- 100012
   (100002, '2017-02-01', 100005, 8.85),   -- 100013
   (100003, '2017-02-01', 100006, 13),     -- 100014
