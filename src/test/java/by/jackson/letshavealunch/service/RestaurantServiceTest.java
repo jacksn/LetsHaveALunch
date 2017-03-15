@@ -26,7 +26,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        Restaurant newRestaurant = new Restaurant(null, "New restaurant");
+        Restaurant newRestaurant = new Restaurant("New restaurant");
         Restaurant created = service.save(newRestaurant);
         newRestaurant.setId(created.getId());
         MATCHER.assertCollectionEquals(
@@ -35,8 +35,8 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test(expected = DataAccessException.class)
-    public void testDuplicateMailSave() throws Exception {
-        service.save(new Restaurant(null, RESTAURANT1.getName()));
+    public void testDuplicateSave() throws Exception {
+        service.save(new Restaurant(RESTAURANT1.getName()));
     }
 
     @Test
@@ -78,6 +78,6 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void testValidation() throws Exception {
-        validateRootCause(() -> service.save(new Restaurant(null, "  ")), ConstraintViolationException.class);
+        validateRootCause(() -> service.save(new Restaurant("  ")), ConstraintViolationException.class);
     }
 }

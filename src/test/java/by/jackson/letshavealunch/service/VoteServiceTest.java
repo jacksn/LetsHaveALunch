@@ -76,18 +76,6 @@ public class VoteServiceTest extends AbstractServiceTest {
                 service.getByDate(of(2017, Month.FEBRUARY, 1), USER_ID));
     }
 
-//    @Test
-//    public void testGetWithUser() throws Exception {
-//        Vote adminVote = service.getWithUser(ADMIN_VOTE_ID, ADMIN_ID);
-//        MATCHER.assertEquals(ADMIN_VOTE, adminVote);
-//        UserTestData.MATCHER.assertEquals(UserTestData.ADMIN, adminVote.getUser());
-//    }
-//
-//    @Test(expected = NotFoundException.class)
-//    public void testGetWithUserNotFound() throws Exception {
-//        service.getWithUser(USER_VOTE_ID, ADMIN_ID);
-//    }
-//
     @Test
     public void testValidation() throws Exception {
         validateRootCause(() -> service.save(new Vote(null, null, of(2015, Month.JUNE, 1)), USER_ID), ConstraintViolationException.class);
