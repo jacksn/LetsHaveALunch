@@ -19,9 +19,4 @@ public class Restaurant extends NamedEntity {
     public Restaurant(Integer id, String name) {
         super(id, name);
     }
-
-    public Restaurant(Restaurant restaurant) {
-        this.setId(restaurant.getId());
-        this.name = restaurant.name;
-    }
 }
