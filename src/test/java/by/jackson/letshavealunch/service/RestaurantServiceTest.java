@@ -70,8 +70,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void testUpdate() throws Exception {
-        Restaurant updated = new Restaurant(RESTAURANT1);
-        updated.setName("UpdatedName");
+        Restaurant updated = new Restaurant(RESTAURANT1_ID, "UpdatedName");
         service.update(updated);
         MATCHER.assertEquals(updated, service.get(RESTAURANT1_ID));
     }

@@ -82,8 +82,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     @Test
     @Transactional
     public void testUpdate() throws Exception {
-        Restaurant updated = new Restaurant(RESTAURANT1);
-        updated.setName("New name");
+        Restaurant updated = new Restaurant(RESTAURANT1_ID, "New name");
 
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -96,8 +95,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdateDenied() throws Exception {
-        Restaurant updated = new Restaurant(RESTAURANT1);
-        updated.setName("New name");
+        Restaurant updated = new Restaurant(RESTAURANT1_ID, "New name");
 
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
