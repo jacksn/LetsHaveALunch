@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-public class Menu extends NamedEntity {
+public class MenuItem extends NamedEntity {
 
     @NotNull
     @Column(name = "price", nullable = false, columnDefinition = "real default 0")
@@ -22,14 +22,14 @@ public class Menu extends NamedEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Restaurant restaurant;
 
-    public Menu() {
+    public MenuItem() {
     }
 
-    public Menu(String name, float price, LocalDate date) {
+    public MenuItem(String name, float price, LocalDate date) {
         this(null, name, price, date);
     }
 
-    public Menu(Integer id, String name, float price, LocalDate date) {
+    public MenuItem(Integer id, String name, float price, LocalDate date) {
         super(id, name);
         this.price = price;
         this.date = date;
@@ -51,4 +51,19 @@ public class Menu extends NamedEntity {
         this.date = date;
     }
 
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
+    }
 }
