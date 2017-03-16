@@ -14,10 +14,10 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface CrudMenuItemRepository extends JpaRepository<MenuItem, Integer> {
 
-    @Query("SELECT m FROM MenuItem m WHERE m.restaurant.id = :restaurantId ORDER BY m.date DESC, m.name ASC")
+    @Query("SELECT m FROM MenuItem m WHERE m.restaurant.id = :restaurantId ORDER BY m.date DESC, m.dish.name ASC")
     List<MenuItem> getAll(@Param("restaurantId") int restaurantId);
 
-    @Query("SELECT m from MenuItem m WHERE m.user.id = :userId AND m.date = :date ORDER BY m.name ASC")
+    @Query("SELECT m from MenuItem m WHERE m.restaurant.id = :restaurantId AND m.date = :date ORDER BY m.dish.name ASC")
     List<MenuItem> getByDate(@Param("restaurantId") int restaurantId, @Param("date") LocalDate date);
 
     @Override

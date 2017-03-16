@@ -14,7 +14,6 @@ public class MenuItemRepositoryImpl implements MenuItemRepository {
     @Autowired
     private CrudMenuItemRepository menuItemRepository;
 
-
     @Override
     @Transactional
     public MenuItem save(MenuItem menuItem) {
@@ -25,6 +24,7 @@ public class MenuItemRepositoryImpl implements MenuItemRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return menuItemRepository.delete(id) != 0;
     }
