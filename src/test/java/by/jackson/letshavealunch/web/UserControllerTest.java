@@ -1,28 +1,27 @@
-package by.jackson.letshavealunch.web.user;
+package by.jackson.letshavealunch.web;
 
+import by.jackson.letshavealunch.TestUtil;
+import by.jackson.letshavealunch.model.Role;
+import by.jackson.letshavealunch.model.User;
+import by.jackson.letshavealunch.web.json.JsonUtil;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-import by.jackson.letshavealunch.TestUtil;
-import by.jackson.letshavealunch.model.Role;
-import by.jackson.letshavealunch.model.User;
-import by.jackson.letshavealunch.web.AbstractControllerTest;
-import by.jackson.letshavealunch.web.json.JsonUtil;
 
 import java.util.Arrays;
 import java.util.Collections;
 
+import static by.jackson.letshavealunch.TestUtil.userHttpBasic;
+import static by.jackson.letshavealunch.UserTestData.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static by.jackson.letshavealunch.TestUtil.userHttpBasic;
-import static by.jackson.letshavealunch.UserTestData.*;
 
-public class AdminRestControllerTest extends AbstractControllerTest {
+public class UserControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = AdminRestController.REST_URL + '/';
+    private static final String REST_URL = UserController.REST_URL + '/';
 
     @Test
     public void testGet() throws Exception {

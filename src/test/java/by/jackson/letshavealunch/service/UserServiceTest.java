@@ -28,7 +28,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        User newUser = new User(null, "New", "new@gmail.com", "newPass", false, Collections.singleton(Role.ROLE_USER));
+        User newUser = new User(null, "New", "new@gmail.com", "newPass", Collections.singleton(Role.ROLE_USER));
         User created = service.save(newUser);
         newUser.setId(created.getId());
         UserTestData.MATCHER.assertCollectionEquals(Arrays.asList(UserTestData.ADMIN, newUser, UserTestData.USER), service.getAll());
@@ -80,14 +80,6 @@ public class UserServiceTest extends AbstractServiceTest {
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
         service.update(updated);
         UserTestData.MATCHER.assertEquals(updated, service.get(UserTestData.USER_ID));
-    }
-
-    @Test
-    public void testSetEnabledEquals() {
-        service.enable(UserTestData.USER_ID, false);
-        Assert.assertFalse(service.get(UserTestData.USER_ID).isEnabled());
-        service.enable(UserTestData.USER_ID, true);
-        Assert.assertTrue(service.get(UserTestData.USER_ID).isEnabled());
     }
 
     @Test

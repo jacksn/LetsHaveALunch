@@ -3,7 +3,7 @@ package by.jackson.letshavealunch.service;
 import by.jackson.letshavealunch.AuthorizedUser;
 import by.jackson.letshavealunch.model.User;
 import by.jackson.letshavealunch.repository.UserRepository;
-import by.jackson.letshavealunch.to.UserTo;
+import by.jackson.letshavealunch.util.PasswordUtil;
 import by.jackson.letshavealunch.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -12,13 +12,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
-import static by.jackson.letshavealunch.util.UserUtil.prepareToSave;
-import static by.jackson.letshavealunch.util.UserUtil.updateFromTo;
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFound;
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 
@@ -38,7 +35,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Override
-    public void delete(int id) throws NotFoundException{
+    public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
@@ -67,25 +64,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @CacheEvict(value = "users", allEntries = true)
-    @Transactional
-    @Override
-    public void update(UserTo userTo) {
-        User user = updateFromTo(get(userTo.getId()), userTo);
-        repository.save(prepareToSave(user));
-    }
-
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void evictCache() {
-    }
-
-    @CacheEvict(value = "users", allEntries = true)
-    @Override
-    @Transactional
-    public void enable(int id, boolean enabled) {
-        User user = get(id);
-        user.setEnabled(enabled);
-        repository.save(user);
     }
 
     @Override
@@ -95,5 +75,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }
         return new AuthorizedUser(u);
+    }
+
+    private User prepareToSave(User user) {
+        user.setPassword(PasswordUtil.encode(user.getPassword()));
+        user.setEmail(user.getEmail().toLowerCase());
+        return user;
     }
 }
