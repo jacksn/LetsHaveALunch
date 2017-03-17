@@ -20,6 +20,4 @@ public interface VoteService {
     void delete(int id, int userId) throws NotFoundException;
 
 //    Vote getWithRestaurant(int id, int userId);
-//
-//    Vote getWithMenu(int id, int userId);
 }

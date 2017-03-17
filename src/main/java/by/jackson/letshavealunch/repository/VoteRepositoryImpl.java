@@ -47,9 +47,4 @@ public class VoteRepositoryImpl implements VoteRepository {
     public List<Vote> getByDate(LocalDate date, int userId) {
         return voteRepository.getByDate(date, userId);
     }
-
-//    @Override
-//    public Vote getWithUser(int id, int userId) {
-//        return voteRepository.getWithUser(id, userId);
-//    }
 }
