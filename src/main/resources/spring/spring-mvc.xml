@@ -17,25 +17,10 @@
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper" ref="objectMapper"/>
             </bean>
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>text/plain;charset=UTF-8</value>
-                        <value>text/html;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
-        <property name="formatters">
-            <set>
-                <bean class="by.jackson.letshavealunch.util.converter.DateTimeFormatters.LocalTimeFormatter"/>
-                <bean class="by.jackson.letshavealunch.util.converter.DateTimeFormatters.LocalDateFormatter"/>
-            </set>
-        </property>
-    </bean>
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService" />
 
     <context:component-scan base-package="by.jackson.letshavealunch.web"/>
 
