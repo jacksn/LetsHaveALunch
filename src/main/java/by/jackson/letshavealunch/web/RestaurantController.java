@@ -1,4 +1,4 @@
-package by.jackson.letshavealunch.web.restaurant;
+package by.jackson.letshavealunch.web;
 
 import by.jackson.letshavealunch.model.Dish;
 import by.jackson.letshavealunch.model.Restaurant;
@@ -74,7 +74,7 @@ public class RestaurantController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @GetMapping("/{id}/dishes?date={date}")
+    @GetMapping("/{id}/menus")
     public List<Dish> getDishes(@PathVariable int id, @RequestParam(value = "date", required = false) LocalDate date) {
 //        if (date == null) {
 //            dishService.

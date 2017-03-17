@@ -1,4 +1,4 @@
-package by.jackson.letshavealunch.web.vote;
+package by.jackson.letshavealunch.web;
 
 import by.jackson.letshavealunch.AuthorizedUser;
 import by.jackson.letshavealunch.model.Vote;
@@ -22,7 +22,7 @@ import static by.jackson.letshavealunch.util.ValidationUtil.checkNew;
 @RestController
 @RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteController {
-    static final String REST_URL = "/rest/profile/votes";
+    public static final String REST_URL = "/votes";
 
     private static final Logger LOG = LoggerFactory.getLogger(VoteController.class);
 

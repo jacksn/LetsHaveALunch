@@ -1,9 +1,8 @@
-package by.jackson.letshavealunch.web.vote;
+package by.jackson.letshavealunch.web;
 
 import by.jackson.letshavealunch.VoteTestData;
 import by.jackson.letshavealunch.model.Vote;
 import by.jackson.letshavealunch.service.VoteService;
-import by.jackson.letshavealunch.web.AbstractControllerTest;
 import by.jackson.letshavealunch.web.json.JsonUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,25 +129,6 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(VOTE2, VOTE1));
-    }
-
-    @Test
-    public void testFilter() throws Exception {
-        mockMvc.perform(get(REST_URL + "filter")
-                .param("date", "2017-02-01")
-                .with(userHttpBasic(USER)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(MATCHER.contentListMatcher(VOTE1));
-    }
-
-    @Test
-    public void testFilterAll() throws Exception {
-        mockMvc.perform(get(REST_URL + "filter?date=")
-                .with(userHttpBasic(USER)))
-                .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(MATCHER.contentListMatcher(VOTE2, VOTE1));
     }
 

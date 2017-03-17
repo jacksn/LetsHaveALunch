@@ -1,9 +1,8 @@
-package by.jackson.letshavealunch.web.dish;
+package by.jackson.letshavealunch.web;
 
 import by.jackson.letshavealunch.DishTestData;
 import by.jackson.letshavealunch.model.Dish;
 import by.jackson.letshavealunch.service.DishService;
-import by.jackson.letshavealunch.web.AbstractControllerTest;
 import by.jackson.letshavealunch.web.json.JsonUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

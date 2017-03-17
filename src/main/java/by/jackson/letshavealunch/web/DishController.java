@@ -1,4 +1,4 @@
-package by.jackson.letshavealunch.web.dish;
+package by.jackson.letshavealunch.web;
 
 import by.jackson.letshavealunch.model.Dish;
 import by.jackson.letshavealunch.service.DishService;
