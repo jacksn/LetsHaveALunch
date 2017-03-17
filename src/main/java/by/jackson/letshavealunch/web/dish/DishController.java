@@ -17,6 +17,7 @@ import java.util.List;
 
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNew;
 
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RestController
 @RequestMapping(DishController.REST_URL)
 public class DishController {
@@ -39,7 +40,6 @@ public class DishController {
         return dishService.getAll();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
         LOG.info("delete dish with id {}", id);
@@ -47,23 +47,23 @@ public class DishController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@Valid @RequestBody Dish dish) {
         LOG.info("update dish {}", dish);
         dishService.update(dish);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> create(@Valid @RequestBody Dish dish) {
         checkNew(dish);
         LOG.info("create dish {} ", dish);
         Dish created = dishService.save(dish);
 
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+        URI uriOfNewResource = ServletUriComponentsBuilder
+                .fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
+                .buildAndExpand(created.getId())
+                .toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
