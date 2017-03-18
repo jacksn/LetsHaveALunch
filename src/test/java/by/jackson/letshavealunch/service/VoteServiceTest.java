@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.ConstraintViolationException;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.Collections;
 
-import static by.jackson.letshavealunch.UserTestData.*;
+import static by.jackson.letshavealunch.UserTestData.ADMIN_ID;
+import static by.jackson.letshavealunch.UserTestData.USER_ID;
 import static by.jackson.letshavealunch.VoteTestData.*;
-import static by.jackson.letshavealunch.VoteTestData.MATCHER;
 import static java.time.LocalDate.of;
 
 public class VoteServiceTest extends AbstractServiceTest {
@@ -35,7 +36,7 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     public void testDelete() throws Exception {
         service.delete(USER_VOTE1_ID, USER_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(VOTE2), service.getAll(USER_ID));
+        MATCHER.assertCollectionEquals(Collections.singleton(VOTE2), service.getAll(USER_ID));
     }
 
     @Test
@@ -72,7 +73,7 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGetByDate() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(VOTE1),
+        MATCHER.assertCollectionEquals(Collections.singletonList(VOTE1),
                 service.getByDate(of(2017, Month.FEBRUARY, 1), USER_ID));
     }
 

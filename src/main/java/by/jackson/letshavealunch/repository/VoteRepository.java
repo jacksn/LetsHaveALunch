@@ -21,8 +21,4 @@ public interface VoteRepository {
 
     // false if Vote does not belong to userId
     boolean delete(int id, int userId);
-
-//    default Vote getWithUser(int id, int userId) {
-//        throw new UnsupportedOperationException();
-//    }
 }
