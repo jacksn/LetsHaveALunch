@@ -56,6 +56,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> getByDateAndRestaurant(LocalDate date, int restaurantId) {
+        Assert.notNull(date, "date must not be null");
         return repository.getByDateAndRestaurant(date, restaurantId);
     }
 
