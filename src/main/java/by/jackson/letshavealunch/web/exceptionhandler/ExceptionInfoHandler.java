@@ -40,7 +40,7 @@ public class ExceptionInfoHandler {
     private MessageSource messageSource;
 
     //  http://stackoverflow.com/a/22358422/548473
-    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY) // 422
     @ExceptionHandler(NotFoundException.class)
     @ResponseBody
     public ErrorInfo handleError(HttpServletRequest req, NotFoundException e) {
