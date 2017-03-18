@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static by.jackson.letshavealunch.MenuTestData.*;
+import static by.jackson.letshavealunch.RestaurantTestData.RESTAURANT1_ID;
 
 public class MenuServiceTest extends AbstractServiceTest {
 
@@ -84,6 +85,12 @@ public class MenuServiceTest extends AbstractServiceTest {
     public void testGetByDate() throws Exception {
         MATCHER.assertCollectionEquals(
                 Arrays.asList(MENU1, MENU2), service.getByDate(MENU1.getDate()));
+    }
+
+    @Test
+    public void testGetByRestaurant() throws Exception {
+        MATCHER.assertCollectionEquals(
+                Arrays.asList(MENU3, MENU1), service.getByRestaurant(RESTAURANT1_ID));
     }
 
     @Test
