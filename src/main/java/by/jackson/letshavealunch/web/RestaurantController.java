@@ -1,8 +1,8 @@
 package by.jackson.letshavealunch.web;
 
-import by.jackson.letshavealunch.model.Dish;
+import by.jackson.letshavealunch.model.Menu;
 import by.jackson.letshavealunch.model.Restaurant;
-import by.jackson.letshavealunch.service.DishService;
+import by.jackson.letshavealunch.service.MenuService;
 import by.jackson.letshavealunch.service.RestaurantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class RestaurantController {
     private RestaurantService restaurantService;
 
     @Autowired
-    private DishService dishService;
+    private MenuService menuService;
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable("id") int id) {
@@ -75,11 +75,13 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}/menus")
-    public List<Dish> getDishes(@PathVariable int id, @RequestParam(value = "date", required = false) LocalDate date) {
-//        if (date == null) {
-//            dishService.
-//        }
-//        return dishService.get;
-        return null;
+    public List<Menu> getDishes(@PathVariable int id, @RequestParam(value = "date", required = false) LocalDate date) {
+        if (date != null) {
+            LOG.info("get menus by date = " + date + " and by restaurant with id = " + id);
+            return menuService.getByDateAndRestaurant(date, id);
+        } else {
+            LOG.info("get menus for restaurant with id = " + id);
+            return menuService.getByRestaurant(id);
+        }
     }
 }

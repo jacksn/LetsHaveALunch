@@ -1,5 +1,6 @@
 package by.jackson.letshavealunch.web;
 
+import by.jackson.letshavealunch.MenuTestData;
 import by.jackson.letshavealunch.RestaurantTestData;
 import by.jackson.letshavealunch.model.Restaurant;
 import by.jackson.letshavealunch.service.RestaurantService;
@@ -13,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static by.jackson.letshavealunch.MenuTestData.MENU1;
+import static by.jackson.letshavealunch.MenuTestData.MENU3;
 import static by.jackson.letshavealunch.RestaurantTestData.*;
 import static by.jackson.letshavealunch.TestUtil.userHttpBasic;
 import static by.jackson.letshavealunch.UserTestData.ADMIN;
@@ -37,6 +40,26 @@ public class RestaurantControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(RestaurantTestData.RESTAURANT1));
+    }
+
+    @Test
+    public void testGetMenus() throws Exception {
+        mockMvc.perform(get(REST_URL + RESTAURANT1_ID + "/menus")
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(MenuTestData.MATCHER.contentListMatcher(Arrays.asList(MENU3, MENU1)));
+    }
+
+    @Test
+    public void testGetMenusByDate() throws Exception {
+        mockMvc.perform(get(REST_URL + RESTAURANT1_ID + "/menus?date=" + MENU1.getDate())
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(MenuTestData.MATCHER.contentListMatcher(Collections.singletonList(MENU1)));
     }
 
     @Test
