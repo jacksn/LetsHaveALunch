@@ -8,8 +8,8 @@ DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, email, password) VALUES
-  ('User', 'user@yandex.ru', '$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni'),   -- 100000, pass: admin
-  ('Admin', 'admin@gmail.com', '$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju'); -- 100001, pass: password
+  ('User', 'user@yandex.ru', '$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni'),   -- 100000, pass: password
+  ('Admin', 'admin@gmail.com', '$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju'); -- 100001, pass: admin
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER',  100000), -- User
@@ -38,18 +38,18 @@ INSERT INTO menus (restaurant_id, date ) VALUES
   (100003, '2017-02-02');   -- 100015
 
 INSERT INTO menu_items (menu_id, dish_id, price) VALUES
-  (100012, 100004, 9.77),   -- 100016
-  (100012, 100005, 8.85),   -- 100017
-  (100013, 100006, 13),     -- 100018
-  (100013, 100007, 8.86),   -- 100019
+  (100012, 100004, 9.77),
+  (100012, 100005, 8.85),
+  (100013, 100006, 13),
+  (100013, 100007, 8.86),
 
-  (100014, 100008, 9.40),   -- 100020
-  (100014, 100009, 6.13),   -- 100021
-  (100015, 100010, 6.15),   -- 100022
-  (100015, 100011, 8.35);   -- 100023
+  (100014, 100008, 9.40),
+  (100014, 100009, 6.13),
+  (100015, 100010, 6.15),
+  (100015, 100011, 8.35);
 
 INSERT INTO votes (date, user_id, restaurant_id) VALUES
-  ('2017-02-01', 100000, 100002), -- 100024 User  Restaurant_100002
-  ('2017-02-01', 100001, 100003), -- 100025 Admin Restaurant_100003
-  ('2017-02-02', 100000, 100003), -- 100026 User  Restaurant_100003
-  ('2017-02-02', 100001, 100003); -- 100027 Admin Restaurant_100002
+  ('2017-02-01', 100000, 100002), -- 100016 User  Restaurant_100002 Charley G`s Seafood Grill
+  ('2017-02-01', 100001, 100003), -- 100017 Admin Restaurant_100003 Cibo`s Bistro & Pizzeria
+  ('2017-02-02', 100000, 100003), -- 100018 User  Restaurant_100003 Cibo`s Bistro & Pizzeria
+  ('2017-02-02', 100001, 100003); -- 100019 Admin Restaurant_100003 Cibo`s Bistro & Pizzeria
