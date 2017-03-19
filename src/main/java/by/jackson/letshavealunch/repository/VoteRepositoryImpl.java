@@ -20,31 +20,28 @@ public class VoteRepositoryImpl implements VoteRepository {
     @Override
     @Transactional
     public Vote save(Vote vote, int userId) {
-        if (!vote.isNew() && get(vote.getId(), userId) == null) {
-            return null;
+        Vote oldVote = voteRepository.getByDateForUser(vote.getDate(), userId);
+        if (oldVote != null) {
+            oldVote.setRestaurant(vote.getRestaurant());
+            return voteRepository.save(oldVote);
+        } else {
+            vote.setUser(userRepository.getOne(userId));
+            return voteRepository.save(vote);
         }
-        vote.setUser(userRepository.getOne(userId));
-        return voteRepository.save(vote);
     }
 
     @Override
-    public boolean delete(int id, int userId) {
-        return voteRepository.delete(id, userId) != 0;
+    public boolean delete(LocalDate date, int userId) {
+        return voteRepository.delete(date, userId) != 0;
     }
 
     @Override
-    public Vote get(int id, int userId) {
-        Vote Vote = voteRepository.findOne(id);
-        return Vote != null && Vote.getUser().getId() == userId ? Vote : null;
+    public List<Vote> getByDate(LocalDate date) {
+        return voteRepository.getByDate(date);
     }
 
     @Override
-    public List<Vote> getAll(int userId) {
-        return voteRepository.getAll(userId);
-    }
-
-    @Override
-    public List<Vote> getByDate(LocalDate date, int userId) {
-        return voteRepository.getByDate(date, userId);
+    public Vote getByDateForUser(LocalDate date, int userId) {
+        return voteRepository.getByDateForUser(date, userId);
     }
 }

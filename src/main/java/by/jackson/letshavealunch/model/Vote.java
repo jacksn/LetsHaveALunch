@@ -1,8 +1,5 @@
 package by.jackson.letshavealunch.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -11,13 +8,13 @@ import java.time.LocalDate;
 @Table(name = "votes")
 public class Vote extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     @NotNull
@@ -27,16 +24,17 @@ public class Vote extends BaseEntity {
     public Vote() {
     }
 
-    public Vote(Restaurant restaurant) {
-        this(null, restaurant, LocalDate.now());
+    public Vote(User user, Restaurant restaurant, LocalDate date) {
+        this(null, user, restaurant, date);
     }
 
-    public Vote(Restaurant restaurant, LocalDate date) {
-        this(null, restaurant, date);
+    public Vote(User user, Restaurant restaurant) {
+        this(null, user, restaurant, LocalDate.now());
     }
 
-    public Vote(Integer id, Restaurant restaurant, LocalDate date) {
+    public Vote(Integer id, User user, Restaurant restaurant, LocalDate date) {
         super(id);
+        this.user = user;
         this.restaurant = restaurant;
         this.date = date;
     }
@@ -63,5 +61,14 @@ public class Vote extends BaseEntity {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "user=" + user +
+                ", restaurant=" + restaurant +
+                ", date=" + date +
+                '}';
     }
 }
