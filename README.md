@@ -1,5 +1,5 @@
 # Let's have a lunch!
-###<a href="http://javawebinar.ru/topjava/">Topjava</a> graduation project.
+### <a href="http://javawebinar.ru/topjava/">Topjava</a> graduation project.
 
 A voting system for deciding where to have lunch.
 
