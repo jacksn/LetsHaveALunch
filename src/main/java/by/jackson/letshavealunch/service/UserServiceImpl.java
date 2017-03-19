@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getByEmail(String email) throws NotFoundException {
         Assert.notNull(email, "email must not be null");
-        return checkNotFound(repository.getByEmail(email), "email=" + email);
+        return checkNotFound(repository.getByEmail(email), " user with email = " + email);
     }
 
     @Cacheable("users")
