@@ -49,7 +49,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MenuTestData.MATCHER.contentListMatcher(Arrays.asList(MENU3, MENU1)));
+                .andExpect(MenuTestData.MATCHER.contentListMatcher(MENU3, MENU1));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MenuTestData.MATCHER.contentListMatcher(Collections.singletonList(MENU1)));
+                .andExpect(MenuTestData.MATCHER.contentListMatcher(MENU1));
     }
 
     @Test
@@ -194,7 +194,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(Arrays.asList(RESTAURANT1, RESTAURANT2)));
+                .andExpect(MATCHER.contentListMatcher(RESTAURANT1, RESTAURANT2));
     }
 
     @Test

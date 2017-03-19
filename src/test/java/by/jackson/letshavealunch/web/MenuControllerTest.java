@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collections;
 
 import static by.jackson.letshavealunch.MenuTestData.*;
 import static by.jackson.letshavealunch.RestaurantTestData.RESTAURANT1_ID;
@@ -52,7 +51,7 @@ public class MenuControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(Arrays.asList(MENU3, MENU4, MENU1, MENU2)));
+                .andExpect(MATCHER.contentListMatcher(MENU3, MENU4, MENU1, MENU2));
     }
 
     @Test
@@ -62,7 +61,7 @@ public class MenuControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(Arrays.asList(MENU3, MENU1)));
+                .andExpect(MATCHER.contentListMatcher(MENU3, MENU1));
     }
 
 
@@ -73,7 +72,7 @@ public class MenuControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(Arrays.asList(MENU1, MENU2)));
+                .andExpect(MATCHER.contentListMatcher(MENU1, MENU2));
     }
 
     @Test
@@ -83,7 +82,7 @@ public class MenuControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(Collections.singletonList(MENU1)));
+                .andExpect(MATCHER.contentListMatcher(MENU1));
     }
 
     @Test

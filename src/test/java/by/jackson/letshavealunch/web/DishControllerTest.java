@@ -172,7 +172,7 @@ public class DishControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(Arrays.asList(DISH1, DISH2, DISH3, DISH4, DISH5, DISH6, DISH7, DISH8)));
+                .andExpect(MATCHER.contentListMatcher(DISH1, DISH2, DISH3, DISH4, DISH5, DISH6, DISH7, DISH8));
     }
 
     @Test
