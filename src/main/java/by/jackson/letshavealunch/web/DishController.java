@@ -16,12 +16,13 @@ import java.net.URI;
 import java.util.List;
 
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNew;
+import static by.jackson.letshavealunch.web.RestApiVersion.API_VERSION_STRING;
 
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RestController
-@RequestMapping(DishController.REST_URL)
+@RequestMapping(value = DishController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishController {
-    static final String REST_URL = "/dishes";
+    static final String REST_URL = API_VERSION_STRING + "/dishes";
 
     private static final Logger LOG = LoggerFactory.getLogger(DishController.class);
 

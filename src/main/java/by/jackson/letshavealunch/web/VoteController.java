@@ -18,11 +18,12 @@ import java.util.List;
 
 import static by.jackson.letshavealunch.util.ValidationUtil.checkIdConsistent;
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNew;
+import static by.jackson.letshavealunch.web.RestApiVersion.API_VERSION_STRING;
 
 @RestController
 @RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteController {
-    public static final String REST_URL = "/votes";
+    public static final String REST_URL = API_VERSION_STRING + "/votes";
 
     private static final Logger LOG = LoggerFactory.getLogger(VoteController.class);
 

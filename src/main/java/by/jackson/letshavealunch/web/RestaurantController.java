@@ -19,11 +19,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNew;
+import static by.jackson.letshavealunch.web.RestApiVersion.API_VERSION_STRING;
 
 @RestController
-@RequestMapping(RestaurantController.REST_URL)
+@RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
-    static final String REST_URL = "/restaurants";
+    static final String REST_URL = API_VERSION_STRING + "/restaurants";
 
     private static final Logger LOG = LoggerFactory.getLogger(RestaurantController.class);
 
