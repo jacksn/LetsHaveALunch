@@ -1,27 +1,21 @@
 package by.jackson.letshavealunch.web;
 
 import by.jackson.letshavealunch.AuthorizedUser;
-import by.jackson.letshavealunch.model.Vote;
 import by.jackson.letshavealunch.service.VoteService;
+import by.jackson.letshavealunch.to.VoteTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
-import static by.jackson.letshavealunch.util.ValidationUtil.checkIdConsistent;
-import static by.jackson.letshavealunch.util.ValidationUtil.checkNew;
 import static by.jackson.letshavealunch.web.RestApiVersion.API_VERSION_STRING;
 
 @RestController
-@RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = VoteController.REST_URL)
 public class VoteController {
     public static final String REST_URL = API_VERSION_STRING + "/votes";
 
@@ -30,53 +24,30 @@ public class VoteController {
     @Autowired
     private VoteService service;
 
-    @GetMapping("/{id}")
-    public Vote get(@PathVariable("id") int id) {
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Set<VoteTo> getVotes(@RequestParam(value = "date", required = false) LocalDate date) {
         int userId = AuthorizedUser.id();
-        LOG.info("get vote {} for User {}", id, userId);
-        return service.get(id, userId);
+        if (date == null) {
+            date = LocalDate.now();
+        }
+        LOG.info("get votes by date = {} for User = {}", date, userId);
+        return service.getByDate(date, userId);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id) {
+    @DeleteMapping
+    public void delete(@RequestParam(value = "date", required = false) LocalDate date) {
         int userId = AuthorizedUser.id();
-        LOG.info("delete vote {} for User {}", id, userId);
-        service.delete(id, userId);
+        if (date == null) {
+            date = LocalDate.now();
+        }
+        LOG.info("delete vote by date = {} for User {}", date, userId);
+        service.delete(date, userId);
     }
 
-    @GetMapping
-    public List<Vote> getAll() {
+    @PostMapping("{restaurantId}")
+    public void vote(@PathVariable Integer restaurantId) {
         int userId = AuthorizedUser.id();
-        LOG.info("getAll for User {}", userId);
-        return service.getAll(userId);
-    }
-
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@Valid @RequestBody Vote vote, @PathVariable("id") int id) {
-        checkIdConsistent(vote, id);
-        int userId = AuthorizedUser.id();
-        LOG.info("update {} for User {}", vote, userId);
-        service.update(vote, userId);
-    }
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> create(@Valid @RequestBody Vote vote) {
-        checkNew(vote);
-        int userId = AuthorizedUser.id();
-        LOG.info("create {} for User {}", vote, userId);
-        Vote created = service.save(vote, userId);
-
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-
-        return ResponseEntity.created(uriOfNewResource).body(created);
-    }
-
-    @RequestMapping(value = "/filter", method = RequestMethod.GET)
-    public List<Vote> getByDate(@RequestParam(value = "date", required = false) LocalDate date) {
-        int userId = AuthorizedUser.id();
-        LOG.info("getByDate {} for User {}", date, userId);
-        return date != null ? service.getByDate(date, userId) : service.getAll(userId);
+        service.save(restaurantId, userId);
+        LOG.info("create vote for restaurant with id = {} for User {}", restaurantId, AuthorizedUser.get().getUser());
     }
 }
