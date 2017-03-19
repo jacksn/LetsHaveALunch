@@ -21,7 +21,7 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
 
     @Override
     @Transactional
-    Vote save(Vote item);
+    Vote save(Vote vote);
 
     @Modifying
     @Transactional

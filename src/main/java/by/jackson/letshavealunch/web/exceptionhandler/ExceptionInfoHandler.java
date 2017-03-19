@@ -3,6 +3,7 @@ package by.jackson.letshavealunch.web.exceptionhandler;
 import by.jackson.letshavealunch.util.ValidationUtil;
 import by.jackson.letshavealunch.util.exception.ErrorInfo;
 import by.jackson.letshavealunch.util.exception.NotFoundException;
+import by.jackson.letshavealunch.util.exception.VoteChangeNotPermittedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,14 @@ public class ExceptionInfoHandler {
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY) // 422
     @ExceptionHandler(NotFoundException.class)
     @ResponseBody
-    public ErrorInfo handleError(HttpServletRequest req, NotFoundException e) {
+    public ErrorInfo notFoundException(HttpServletRequest req, NotFoundException e) {
+        return logAndGetErrorInfo(req, e, false);
+    }
+
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY) // 422
+    @ExceptionHandler(VoteChangeNotPermittedException.class)
+    @ResponseBody
+    public ErrorInfo voteChangeNotPermittedException(HttpServletRequest req, VoteChangeNotPermittedException e) {
         return logAndGetErrorInfo(req, e, false);
     }
 
@@ -80,7 +88,7 @@ public class ExceptionInfoHandler {
         return logAndGetValidationErrorInfo(req, e.getBindingResult());
     }
 
-    @ResponseStatus(value = HttpStatus.FORBIDDEN)  // 422
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseBody
     public ErrorInfo actionDeniedError(HttpServletRequest req, AccessDeniedException e) {

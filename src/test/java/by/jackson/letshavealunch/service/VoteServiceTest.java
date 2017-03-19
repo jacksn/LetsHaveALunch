@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import java.util.HashSet;
 import static by.jackson.letshavealunch.UserTestData.USER;
 import static by.jackson.letshavealunch.UserTestData.USER_ID;
 import static by.jackson.letshavealunch.VoteTestData.*;
+import static org.junit.Assume.assumeTrue;
 
 public class VoteServiceTest extends AbstractServiceTest {
 
@@ -41,6 +43,7 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     public void testUpdate() throws Exception {
+        assumeTrue(LocalTime.now().getHour() < 11);
         LocalDate date = LocalDate.now();
         Vote updated = new Vote(USER_VOTE1_ID, USER, RestaurantTestData.RESTAURANT2, date);
         service.save(RestaurantTestData.RESTAURANT1_ID, USER_ID);

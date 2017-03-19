@@ -6,11 +6,13 @@ import by.jackson.letshavealunch.repository.RestaurantRepository;
 import by.jackson.letshavealunch.repository.UserRepository;
 import by.jackson.letshavealunch.repository.VoteRepository;
 import by.jackson.letshavealunch.to.VoteTo;
+import by.jackson.letshavealunch.util.exception.VoteChangeNotPermittedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -65,9 +67,21 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote save(Integer restaurantId, int userId) {
         Assert.notNull(restaurantId, "restaurant id must not be null");
-        Restaurant restaurant;
-        checkNotFoundWithId(restaurant = restaurantRepository.findOne(restaurantId), restaurantId);
-        Vote vote = new Vote(userRepository.getOne(userId), restaurant);
+        Restaurant restaurant = restaurantRepository.findOne(restaurantId);
+        checkNotFoundWithId(restaurant, restaurantId);
+
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        Vote vote = voteRepository.getByDateForUser(dateTime.toLocalDate(), userId);
+        if (dateTime.getHour() >= 11 && vote != null) {
+            throw new VoteChangeNotPermittedException("Vote change after 11:00 is not permitted");
+        }
+        if (vote == null) {
+            vote = new Vote(userRepository.getOne(userId), restaurant);
+        } else {
+            vote.setRestaurant(restaurant);
+        }
+
         return voteRepository.save(vote, userId);
     }
 

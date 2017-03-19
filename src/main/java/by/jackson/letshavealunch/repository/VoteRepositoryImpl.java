@@ -14,20 +14,10 @@ public class VoteRepositoryImpl implements VoteRepository {
     @Autowired
     private CrudVoteRepository voteRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Override
     @Transactional
     public Vote save(Vote vote, int userId) {
-        Vote oldVote = voteRepository.getByDateForUser(vote.getDate(), userId);
-        if (oldVote != null) {
-            oldVote.setRestaurant(vote.getRestaurant());
-            return voteRepository.save(oldVote);
-        } else {
-            vote.setUser(userRepository.getOne(userId));
-            return voteRepository.save(vote);
-        }
+        return voteRepository.save(vote);
     }
 
     @Override
