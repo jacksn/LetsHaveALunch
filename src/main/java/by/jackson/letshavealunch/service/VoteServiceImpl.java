@@ -1,52 +1,78 @@
 package by.jackson.letshavealunch.service;
 
+import by.jackson.letshavealunch.model.Restaurant;
 import by.jackson.letshavealunch.model.Vote;
+import by.jackson.letshavealunch.repository.RestaurantRepository;
+import by.jackson.letshavealunch.repository.UserRepository;
 import by.jackson.letshavealunch.repository.VoteRepository;
+import by.jackson.letshavealunch.to.VoteTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
+import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFound;
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteServiceImpl implements VoteService {
 
     @Autowired
-    private VoteRepository repository;
+    private VoteRepository voteRepository;
+
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
-    public Vote get(int id, int userId) {
-        return checkNotFoundWithId(repository.get(id, userId), id);
-    }
-
-    @Override
-    public List<Vote> getByDate(LocalDate date, int userId) {
+    public Vote getByDateForUser(LocalDate date, int userId) {
         Assert.notNull(date, "date must not be null");
-        return repository.getByDate(date, userId);
+        return voteRepository.getByDateForUser(date, userId);
     }
 
     @Override
-    public List<Vote> getAll(int userId) {
-        return repository.getAll(userId);
+    public Set<VoteTo> getByDate(LocalDate date, int userId) {
+        Restaurant usersRestaurant = null;
+
+        Map<Restaurant, Integer> voteCountForRestaurants = new HashMap<>();
+        for (Vote vote : voteRepository.getByDate(date)) {
+            voteCountForRestaurants.merge(vote.getRestaurant(), 1, Integer::sum);
+            if (vote.getUser().getId() == userId) {
+                usersRestaurant = vote.getRestaurant();
+            }
+        }
+
+        Set<VoteTo> result = new HashSet<>();
+        Restaurant finalUsersRestaurant = usersRestaurant;
+        voteCountForRestaurants.entrySet().forEach(
+                entry -> result.add(
+                        new VoteTo(
+                                entry.getKey(),
+                                entry.getValue(),
+                                finalUsersRestaurant != null && entry.getKey().equals(finalUsersRestaurant)
+                        )
+                ));
+        return result;
     }
 
     @Override
-    public Vote save(Vote vote, int userId) {
-        Assert.notNull(vote, "Vote must not be null");
-        return repository.save(vote, userId);
+    public Vote save(Integer restaurantId, int userId) {
+        Assert.notNull(restaurantId, "restaurant id must not be null");
+        Restaurant restaurant;
+        checkNotFoundWithId(restaurant = restaurantRepository.findOne(restaurantId), restaurantId);
+        Vote vote = new Vote(userRepository.getOne(userId), restaurant);
+        return voteRepository.save(vote, userId);
     }
 
     @Override
-    public Vote update(Vote vote, int userId) {
-        Assert.notNull(vote, "Vote must not be null");
-        return checkNotFoundWithId(repository.save(vote, userId), vote.getId());
-    }
-
-    @Override
-    public void delete(int id, int userId) {
-        checkNotFoundWithId(repository.delete(id, userId), id);
+    public void delete(LocalDate date, int userId) {
+        checkNotFound(voteRepository.delete(date, userId), "vote on " + date);
     }
 }

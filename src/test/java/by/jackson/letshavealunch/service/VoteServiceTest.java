@@ -6,15 +6,14 @@ import by.jackson.letshavealunch.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.validation.ConstraintViolationException;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashSet;
 
-import static by.jackson.letshavealunch.UserTestData.ADMIN_ID;
+import static by.jackson.letshavealunch.UserTestData.USER;
 import static by.jackson.letshavealunch.UserTestData.USER_ID;
 import static by.jackson.letshavealunch.VoteTestData.*;
-import static java.time.LocalDate.of;
 
 public class VoteServiceTest extends AbstractServiceTest {
 
@@ -22,64 +21,46 @@ public class VoteServiceTest extends AbstractServiceTest {
     protected VoteService service;
 
     @Test
-    public void testGet() throws Exception {
-        Vote actual = service.get(ADMIN_VOTE1_ID, ADMIN_ID);
-        MATCHER.assertEquals(ADMIN_VOTE1, actual);
-    }
-
-    @Test
-    public void testGetNotFound() throws Exception {
-        thrown.expect(NotFoundException.class);
-        service.get(USER_VOTE1_ID, ADMIN_ID);
-    }
-
-    @Test
     public void testDelete() throws Exception {
-        service.delete(USER_VOTE1_ID, USER_ID);
-        MATCHER.assertCollectionEquals(Collections.singleton(VOTE2), service.getAll(USER_ID));
+        service.delete(VOTE1.getDate(), USER_ID);
+        MATCHER.assertEquals(null, service.getByDateForUser(VOTE1.getDate(), USER_ID));
     }
 
-    @Test
+    @Test(expected = NotFoundException.class)
     public void testDeleteNotFound() throws Exception {
-        thrown.expect(NotFoundException.class);
-        service.delete(USER_VOTE1_ID, ADMIN_ID);
+        service.delete(LocalDate.now(), USER_ID);
     }
 
     @Test
     public void testSave() throws Exception {
-        Vote created = getCreated();
-        service.save(created, USER_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(created, VOTE2, VOTE1), service.getAll(USER_ID));
+        LocalDate date = LocalDate.now();
+        Vote created = new Vote(USER, RestaurantTestData.RESTAURANT1, date);
+        service.save(RestaurantTestData.RESTAURANT1_ID, USER_ID);
+        MATCHER.assertEquals(created, service.getByDateForUser(date, USER_ID));
     }
 
     @Test
     public void testUpdate() throws Exception {
-        Vote updated = getUpdated();
-        service.update(updated, USER_ID);
-        MATCHER.assertEquals(updated, service.get(USER_VOTE1_ID, USER_ID));
+        LocalDate date = LocalDate.now();
+        Vote updated = new Vote(USER_VOTE1_ID, USER, RestaurantTestData.RESTAURANT2, date);
+        service.save(RestaurantTestData.RESTAURANT1_ID, USER_ID);
+        service.save(RestaurantTestData.RESTAURANT2_ID, USER_ID);
+        MATCHER.assertEquals(updated, service.getByDateForUser(date, USER_ID));
     }
 
     @Test
-    public void testUpdateNotFound() throws Exception {
-        thrown.expect(NotFoundException.class);
-        thrown.expectMessage("Not found entity with id=" + USER_VOTE1_ID);
-        service.update(VOTE1, ADMIN_ID);
-    }
-
-    @Test
-    public void testGetAll() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(VOTE2, VOTE1), service.getAll(USER_ID));
+    public void testGetByDateForUser() throws Exception {
+        MATCHER.assertEquals(VOTE1, service.getByDateForUser(LocalDate.of(2017, Month.FEBRUARY, 1), USER_ID));
     }
 
     @Test
     public void testGetByDate() throws Exception {
-        MATCHER.assertCollectionEquals(Collections.singletonList(VOTE1),
-                service.getByDate(of(2017, Month.FEBRUARY, 1), USER_ID));
+        MATCHER_VOTE_TO.assertCollectionEquals(new HashSet<>(Arrays.asList(VOTE_TO_ADMIN_1, VOTE_TO_USER_1)),
+                service.getByDate(VOTE1.getDate(), USER_ID));
     }
 
-    @Test
-    public void testValidation() throws Exception {
-        validateRootCause(() -> service.save(new Vote(null, null, of(2015, Month.JUNE, 1)), USER_ID), ConstraintViolationException.class);
-        validateRootCause(() -> service.save(new Vote(null, RestaurantTestData.RESTAURANT1, null), USER_ID), ConstraintViolationException.class);
+    @Test(expected = IllegalArgumentException.class)
+    public void testSaveInvalid() throws Exception {
+        service.save(null, USER_ID);
     }
 }
