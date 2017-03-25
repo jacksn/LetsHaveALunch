@@ -9,9 +9,9 @@ import java.util.List;
 public interface MenuService {
     Menu get(int id) throws NotFoundException;
 
-    Menu save(Menu Menu);
+    Menu save(Menu menu);
 
-    Menu update(Menu Menu) throws NotFoundException;
+    Menu update(Menu menu) throws NotFoundException;
 
     void delete(int id) throws NotFoundException;
 

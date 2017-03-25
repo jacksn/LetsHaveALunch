@@ -35,9 +35,9 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     @Query("SELECT m FROM Menu m WHERE m.date = :date AND m.restaurant.id = :restaurant_id ORDER BY m.date DESC, m.restaurant.name ASC")
     @OrderBy("date DESC, restaurant.name")
-    List<Menu> getByDateAndRestaurant(@Param("date") LocalDate date, @Param("restaurant_id") int restaurant_id);
+    List<Menu> getByDateAndRestaurant(@Param("date") LocalDate date, @Param("restaurant_id") int restaurantId);
 
     @Query("SELECT m FROM Menu m WHERE m.restaurant.id = :restaurant_id ORDER BY m.date DESC, m.restaurant.name ASC")
     @OrderBy("date DESC, restaurant.name")
-    List<Menu> getByRestaurant(@Param("restaurant_id") int restaurant_id);
+    List<Menu> getByRestaurant(@Param("restaurant_id") int restaurantId);
 }

@@ -9,7 +9,8 @@ import java.util.Arrays;
 
 import static by.jackson.letshavealunch.model.BaseEntity.START_SEQ;
 
-public class MenuTestData {
+public final class MenuTestData {
+
     public static final ModelMatcher<Menu> MATCHER = ModelMatcher.of(Menu.class);
 
     public static final int MENU1_ID = START_SEQ + 12;
@@ -48,4 +49,7 @@ public class MenuTestData {
                     new MenuItem(DishTestData.DISH7, 6.15F),
                     new MenuItem(DishTestData.DISH8, 8.35F)
             )); // 100015
+
+    private MenuTestData() {
+    }
 }

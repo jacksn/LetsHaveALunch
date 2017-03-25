@@ -7,10 +7,10 @@ import java.util.Objects;
 
 import static by.jackson.letshavealunch.model.BaseEntity.START_SEQ;
 
-public class DishTestData {
+public final class DishTestData {
     public static final ModelMatcher<Dish> MATCHER = ModelMatcher.of(Dish.class,
-            (expected, actual) -> expected == actual ||
-                    (Objects.equals(expected.getId(), actual.getId())
+            (expected, actual) -> expected == actual
+                    || (Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getName(), actual.getName())
                     )
     );
@@ -32,4 +32,7 @@ public class DishTestData {
     public static final Dish DISH6 = new Dish(DISH6_ID, "Slow-Cooked Ginger Rabbit");                 // 100009
     public static final Dish DISH7 = new Dish(DISH7_ID, "Smoked Mint & Berry Crocodile");             // 100010
     public static final Dish DISH8 = new Dish(DISH8_ID, "Thermal-Cooked Saffron & Shallot Salmon");   // 100011
+
+    private DishTestData() {
+    }
 }

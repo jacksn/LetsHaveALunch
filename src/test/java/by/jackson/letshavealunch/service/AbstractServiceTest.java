@@ -29,7 +29,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-abstract public class AbstractServiceTest {
+public abstract class AbstractServiceTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);
 
     private static StringBuilder results = new StringBuilder();
@@ -37,11 +37,6 @@ abstract public class AbstractServiceTest {
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private JpaUtil jpaUtil;
-
-    @Before
-    public void setUp() throws Exception {
-        jpaUtil.clear2ndLevelHibernateCache();
-    }
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -60,13 +55,18 @@ abstract public class AbstractServiceTest {
         }
     };
 
+    @Before
+    public void setUp() throws Exception {
+        jpaUtil.clear2ndLevelHibernateCache();
+    }
+
     @AfterClass
     public static void printResult() {
-        LOG.info("\n---------------------------------" +
-                "\nTest                 Duration, ms" +
-                "\n---------------------------------\n" +
-                results +
-                "---------------------------------\n");
+        LOG.info("\n---------------------------------"
+               + "\nTest                 Duration, ms"
+               + "\n---------------------------------\n"
+               + results
+               + "---------------------------------\n");
         results.setLength(0);
     }
 

@@ -5,7 +5,7 @@ import by.jackson.letshavealunch.model.Restaurant;
 public class VoteTo {
     private Restaurant restaurant;
     private int voteCount;
-    private boolean UserVote;
+    private boolean userVote;
 
     public VoteTo() {
     }
@@ -13,7 +13,7 @@ public class VoteTo {
     public VoteTo(Restaurant restaurant, int voteCount, boolean userVote) {
         this.restaurant = restaurant;
         this.voteCount = voteCount;
-        UserVote = userVote;
+        this.userVote = userVote;
     }
 
     public Restaurant getRestaurant() {
@@ -33,11 +33,11 @@ public class VoteTo {
     }
 
     public boolean isUserVote() {
-        return UserVote;
+        return userVote;
     }
 
     public void setUserVote(boolean userVote) {
-        UserVote = userVote;
+        this.userVote = userVote;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class VoteTo {
         VoteTo voteTo = (VoteTo) o;
 
         if (voteCount != voteTo.voteCount) return false;
-        if (UserVote != voteTo.UserVote) return false;
+        if (userVote != voteTo.userVote) return false;
         return restaurant != null ? restaurant.equals(voteTo.restaurant) : voteTo.restaurant == null;
     }
 
@@ -56,7 +56,7 @@ public class VoteTo {
     public int hashCode() {
         int result = restaurant != null ? restaurant.hashCode() : 0;
         result = 31 * result + voteCount;
-        result = 31 * result + (UserVote ? 1 : 0);
+        result = 31 * result + (userVote ? 1 : 0);
         return result;
     }
 
@@ -65,7 +65,7 @@ public class VoteTo {
         return "VoteTo{" +
                 "restaurant=" + restaurant +
                 ", voteCount=" + voteCount +
-                ", UserVote=" + UserVote +
+                ", userVote=" + userVote +
                 '}';
     }
 }

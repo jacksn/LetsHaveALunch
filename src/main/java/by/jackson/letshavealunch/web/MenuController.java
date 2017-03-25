@@ -22,7 +22,7 @@ import static by.jackson.letshavealunch.web.RestApiVersion.API_VERSION_STRING;
 @RestController
 @RequestMapping(value = MenuController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuController {
-    static final String REST_URL =  API_VERSION_STRING + "/menus";
+    static final String REST_URL = API_VERSION_STRING + "/menus";
 
     private static final Logger LOG = LoggerFactory.getLogger(MenuController.class);
 
@@ -41,7 +41,7 @@ public class MenuController {
         if (date != null && restaurantId != null) {
             LOG.info("get menus by date = " + date + " and for restaurant with id = " + restaurantId);
             return menuService.getByDateAndRestaurant(date, restaurantId);
-        } else if (date != null ) {
+        } else if (date != null) {
             LOG.info("get menus by date = " + date);
             return menuService.getByDate(date);
         } else if (restaurantId != null) {

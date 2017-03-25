@@ -52,8 +52,8 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGet() throws Exception {
-        Dish Dish = service.get(DISH1_ID);
-        MATCHER.assertEquals(DISH1, Dish);
+        Dish dish = service.get(DISH1_ID);
+        MATCHER.assertEquals(DISH1, dish);
     }
 
     @Test(expected = NotFoundException.class)

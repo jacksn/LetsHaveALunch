@@ -77,7 +77,7 @@ public class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetByDateAndRestaurant() throws Exception {
-        mockMvc.perform(get(REST_URL + "?date=" + MENU1.getDate()+ "&restaurant=" + RESTAURANT1_ID)
+        mockMvc.perform(get(REST_URL + "?date=" + MENU1.getDate() + "&restaurant=" + RESTAURANT1_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -149,13 +149,13 @@ public class MenuControllerTest extends AbstractControllerTest {
     @Test
     public void testUpdateDenied() throws Exception {
         Menu updated = new Menu(MENU1_ID,
-        LocalDate.parse("2017-02-01"),
-        RestaurantTestData.RESTAURANT1,
-        Arrays.asList(
-                new MenuItem(DishTestData.DISH1, 9.77F),
-                new MenuItem(DishTestData.DISH2, 8.85F),
-                new MenuItem(DishTestData.DISH8, 10.55F)
-        ));
+                LocalDate.parse("2017-02-01"),
+                RestaurantTestData.RESTAURANT1,
+                Arrays.asList(
+                        new MenuItem(DishTestData.DISH1, 9.77F),
+                        new MenuItem(DishTestData.DISH2, 8.85F),
+                        new MenuItem(DishTestData.DISH8, 10.55F)
+                ));
 
         mockMvc.perform(put(REST_URL + MENU1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
