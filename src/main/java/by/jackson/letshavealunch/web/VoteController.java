@@ -1,6 +1,7 @@
 package by.jackson.letshavealunch.web;
 
 import by.jackson.letshavealunch.AuthorizedUser;
+import by.jackson.letshavealunch.model.Role;
 import by.jackson.letshavealunch.service.VoteService;
 import by.jackson.letshavealunch.to.VoteTo;
 import org.slf4j.Logger;
@@ -27,27 +28,17 @@ public class VoteController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Set<VoteTo> getVotes(@RequestParam(value = "date", required = false) LocalDate date) {
         int userId = AuthorizedUser.id();
-        if (date == null) {
+        if (date == null || !AuthorizedUser.get().getUser().getRoles().contains(Role.ROLE_ADMIN)) {
             date = LocalDate.now();
         }
         LOG.info("get votes by date = {} for User = {}", date, userId);
         return service.getByDate(date, userId);
     }
 
-    @DeleteMapping
-    public void delete(@RequestParam(value = "date", required = false) LocalDate date) {
-        int userId = AuthorizedUser.id();
-        if (date == null) {
-            date = LocalDate.now();
-        }
-        LOG.info("delete vote by date = {} for User {}", date, userId);
-        service.delete(date, userId);
-    }
-
     @PostMapping("{restaurantId}")
     public void vote(@PathVariable Integer restaurantId) {
         int userId = AuthorizedUser.id();
         service.save(restaurantId, userId);
-        LOG.info("create vote for restaurant with id = {} for User {}", restaurantId, AuthorizedUser.get().getUser());
+        LOG.info("create or update vote for restaurant with id = {} for User {}", restaurantId, AuthorizedUser.get().getUser());
     }
 }
