@@ -6,13 +6,14 @@ import by.jackson.letshavealunch.repository.RestaurantRepository;
 import by.jackson.letshavealunch.repository.UserRepository;
 import by.jackson.letshavealunch.repository.VoteRepository;
 import by.jackson.letshavealunch.to.VoteTo;
-import by.jackson.letshavealunch.util.exception.VoteChangeNotPermittedException;
+import by.jackson.letshavealunch.util.exception.VotingEndedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -23,6 +24,7 @@ import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteServiceImpl implements VoteService {
+    private static final LocalTime VOTING_END_TIME = LocalTime.of(11, 0, 0);
 
     @Autowired
     private VoteRepository voteRepository;
@@ -53,14 +55,8 @@ public class VoteServiceImpl implements VoteService {
 
         Set<VoteTo> result = new HashSet<>();
         Restaurant finalUsersRestaurant = usersRestaurant;
-        voteCountForRestaurants.entrySet().forEach(
-                entry -> result.add(
-                        new VoteTo(
-                                entry.getKey(),
-                                entry.getValue(),
-                                finalUsersRestaurant != null && entry.getKey().equals(finalUsersRestaurant)
-                        )
-                ));
+        voteCountForRestaurants.forEach(
+                (key, value) -> result.add(new VoteTo(key, value, finalUsersRestaurant != null && key.equals(finalUsersRestaurant))));
         return result;
     }
 
@@ -73,8 +69,8 @@ public class VoteServiceImpl implements VoteService {
         LocalDateTime dateTime = LocalDateTime.now();
 
         Vote vote = voteRepository.getByDateForUser(dateTime.toLocalDate(), userId);
-        if (dateTime.getHour() >= 11 && vote != null) {
-            throw new VoteChangeNotPermittedException("Vote change after 11:00 is not permitted");
+        if (dateTime.toLocalTime().isBefore(VOTING_END_TIME) && vote != null) {
+            throw new VotingEndedException("Voting ended at " + VOTING_END_TIME);
         }
         if (vote == null) {
             vote = new Vote(userRepository.getOne(userId), restaurant);

@@ -10,14 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Collections;
 
 import static by.jackson.letshavealunch.TestUtil.userHttpBasic;
+import static by.jackson.letshavealunch.UserTestData.ADMIN;
 import static by.jackson.letshavealunch.UserTestData.USER;
 import static by.jackson.letshavealunch.UserTestData.USER_ID;
 import static by.jackson.letshavealunch.VoteTestData.*;
 import static org.junit.Assume.assumeTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,8 +32,8 @@ public class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetByDate() throws Exception {
-        mockMvc.perform(get(REST_URL + "?date=" +VOTE1.getDate())
-                .with(userHttpBasic(USER)))
+        mockMvc.perform(get(REST_URL + "?date=" + VOTE1.getDate())
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -44,23 +45,6 @@ public class VoteControllerTest extends AbstractControllerTest {
         mockMvc.perform(get(REST_URL))
                 .andDo(print())
                 .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    public void testDeleteNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + "?date=" + LocalDate.now())
-                .with(userHttpBasic(USER)))
-                .andDo(print())
-                .andExpect(status().isUnprocessableEntity());
-    }
-
-    @Test
-    @Transactional
-    public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + "?date=" + VOTE1.getDate())
-                .with(userHttpBasic(USER)))
-                .andExpect(status().isOk());
-        MATCHER_VOTE_TO.assertCollectionEquals(Collections.singleton(VOTE_TO_ADMIN_1), service.getByDate(VOTE1.getDate(), USER_ID));
     }
 
     @Test

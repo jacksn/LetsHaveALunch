@@ -3,7 +3,7 @@ package by.jackson.letshavealunch.web.exceptionhandler;
 import by.jackson.letshavealunch.util.ValidationUtil;
 import by.jackson.letshavealunch.util.exception.ErrorInfo;
 import by.jackson.letshavealunch.util.exception.NotFoundException;
-import by.jackson.letshavealunch.util.exception.VoteChangeNotPermittedException;
+import by.jackson.letshavealunch.util.exception.VotingEndedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +50,9 @@ public class ExceptionInfoHandler {
     }
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY) // 422
-    @ExceptionHandler(VoteChangeNotPermittedException.class)
+    @ExceptionHandler(VotingEndedException.class)
     @ResponseBody
-    public ErrorInfo voteChangeNotPermittedException(HttpServletRequest req, VoteChangeNotPermittedException e) {
+    public ErrorInfo voteChangeNotPermittedException(HttpServletRequest req, VotingEndedException e) {
         return logAndGetErrorInfo(req, e, false);
     }
 

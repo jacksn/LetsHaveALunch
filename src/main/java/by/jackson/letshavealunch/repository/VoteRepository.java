@@ -11,7 +11,7 @@ public interface VoteRepository {
 
     Vote getByDateForUser(LocalDate date, int userId);
 
-    Vote save(Vote Vote, int userId);
+    Vote save(Vote vote, int userId);
 
     boolean delete(LocalDate date, int userId);
 }
