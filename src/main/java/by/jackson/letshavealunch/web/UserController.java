@@ -25,27 +25,27 @@ import static by.jackson.letshavealunch.web.RestApiVersion.API_VERSION_STRING;
 public class UserController {
     public static final String REST_URL = API_VERSION_STRING + "/users";
 
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService service;
 
     @GetMapping
     public List<User> getAll() {
-        log.info("get all");
+        LOG.info("get all");
         return service.getAll();
     }
 
     @GetMapping(value = "/{id}")
     public User get(@PathVariable("id") int id) {
-        log.info("get " + id);
+        LOG.info("get " + id);
         return service.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> create(@Valid @RequestBody User user) {
         checkNew(user);
-        log.info("create " + user);
+        LOG.info("create " + user);
         User created = service.save(user);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -57,20 +57,20 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
-        log.info("delete " + id);
+        LOG.info("delete " + id);
         service.delete(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@Valid @RequestBody User user, @PathVariable("id") int id) {
-        log.info("update " + user);
+        LOG.info("update " + user);
         checkIdConsistent(user, id);
         service.update(user);
     }
 
     @GetMapping(value = "/by")
     public User getByMail(@RequestParam("email") String email) {
-        log.info("getByEmail " + email);
+        LOG.info("getByEmail " + email);
         return service.getByEmail(email);
     }
 }
