@@ -4,6 +4,7 @@ import by.jackson.letshavealunch.matcher.ModelMatcher;
 import by.jackson.letshavealunch.model.Menu;
 import by.jackson.letshavealunch.model.MenuItem;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -22,32 +23,32 @@ public final class MenuTestData {
             LocalDate.parse("2017-02-01"),
             RestaurantTestData.RESTAURANT1,
             Arrays.asList(
-                    new MenuItem(DishTestData.DISH1, 9.77F),
-                    new MenuItem(DishTestData.DISH2, 8.85F)
+                    new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                    new MenuItem(DishTestData.DISH2, new BigDecimal("8.85"))
             )); // 100012
 
     public static final Menu MENU2 = new Menu(MENU2_ID,
             LocalDate.parse("2017-02-01"),
             RestaurantTestData.RESTAURANT2,
             Arrays.asList(
-                    new MenuItem(DishTestData.DISH3, 13F),
-                    new MenuItem(DishTestData.DISH4, 8.86F)
+                    new MenuItem(DishTestData.DISH3, new BigDecimal("13.00")),
+                    new MenuItem(DishTestData.DISH4, new BigDecimal("8.86"))
             )); // 100013
 
     public static final Menu MENU3 = new Menu(MENU3_ID,
             LocalDate.parse("2017-02-02"),
             RestaurantTestData.RESTAURANT1,
             Arrays.asList(
-                    new MenuItem(DishTestData.DISH5, 9.40F),
-                    new MenuItem(DishTestData.DISH6, 6.13F)
+                    new MenuItem(DishTestData.DISH5, new BigDecimal("9.40")),
+                    new MenuItem(DishTestData.DISH6, new BigDecimal("6.13"))
             )); // 100014
 
     public static final Menu MENU4 = new Menu(MENU4_ID,
             LocalDate.parse("2017-02-02"),
             RestaurantTestData.RESTAURANT2,
             Arrays.asList(
-                    new MenuItem(DishTestData.DISH7, 6.15F),
-                    new MenuItem(DishTestData.DISH8, 8.35F)
+                    new MenuItem(DishTestData.DISH7, new BigDecimal("6.15")),
+                    new MenuItem(DishTestData.DISH8, new BigDecimal("8.35"))
             )); // 100015
 
     private MenuTestData() {

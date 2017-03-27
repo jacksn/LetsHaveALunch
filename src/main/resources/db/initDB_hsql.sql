@@ -56,7 +56,7 @@ CREATE TABLE menu_items
 (
   menu_id       INTEGER NOT NULL,
   dish_id       INTEGER NOT NULL,
-  price         REAL    NOT NULL,
+  price         DECIMAL(17, 2) NOT NULL,
   PRIMARY KEY (menu_id, dish_id),
   FOREIGN KEY ( menu_id ) REFERENCES menus (id) ON DELETE CASCADE,
   FOREIGN KEY ( dish_id ) REFERENCES dishes (id) ON DELETE CASCADE

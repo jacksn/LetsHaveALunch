@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 import javax.validation.ConstraintViolationException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,8 +38,8 @@ public class MenuServiceTest extends AbstractServiceTest {
                 date,
                 RestaurantTestData.RESTAURANT2,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH2, 2.15F),
-                        new MenuItem(DishTestData.DISH6, 4.35F)
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("2.15")),
+                        new MenuItem(DishTestData.DISH6, new BigDecimal("4.35"))
                 ));
         service.save(created);
 
@@ -52,8 +53,8 @@ public class MenuServiceTest extends AbstractServiceTest {
                 LocalDate.parse("2017-02-01"),
                 RestaurantTestData.RESTAURANT2,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH3, 13F),
-                        new MenuItem(DishTestData.DISH4, 8.86F)
+                        new MenuItem(DishTestData.DISH3, new BigDecimal("13.00")),
+                        new MenuItem(DishTestData.DISH4, new BigDecimal("8.86"))
                 ));
         service.save(duplicate);
     }
@@ -111,9 +112,9 @@ public class MenuServiceTest extends AbstractServiceTest {
                 LocalDate.parse("2017-02-01"),
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH1, 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F),
-                        new MenuItem(DishTestData.DISH8, 10.55F)
+                        new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                        new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                 ));
         service.update(updated);
         MATCHER.assertEquals(updated, service.get(MENU1_ID));
@@ -126,9 +127,9 @@ public class MenuServiceTest extends AbstractServiceTest {
                         null,
                         RestaurantTestData.RESTAURANT1,
                         Arrays.asList(
-                                new MenuItem(DishTestData.DISH1, 9.77F),
-                                new MenuItem(DishTestData.DISH2, 8.85F),
-                                new MenuItem(DishTestData.DISH8, 10.55F)
+                                new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                                new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                                new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                         ))
         ), ConstraintViolationException.class);
         validateRootCause(() -> service.save(
@@ -136,9 +137,9 @@ public class MenuServiceTest extends AbstractServiceTest {
                         LocalDate.parse("2017-02-01"),
                         null,
                         Arrays.asList(
-                                new MenuItem(DishTestData.DISH1, 9.77F),
-                                new MenuItem(DishTestData.DISH2, 8.85F),
-                                new MenuItem(DishTestData.DISH8, 10.55F)
+                                new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                                new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                                new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                         ))
         ), ConstraintViolationException.class);
         validateRootCause(() -> service.save(

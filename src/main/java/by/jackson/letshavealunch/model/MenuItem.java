@@ -2,6 +2,7 @@ package by.jackson.letshavealunch.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Embeddable
 @Access(AccessType.FIELD)
@@ -14,12 +15,12 @@ public class MenuItem {
 
     @NotNull
     @Column
-    private Float price;
+    private BigDecimal price;
 
     public MenuItem() {
     }
 
-    public MenuItem(Dish dish, Float price) {
+    public MenuItem(Dish dish, BigDecimal price) {
         this.dish = dish;
         this.price = price;
     }
@@ -32,22 +33,28 @@ public class MenuItem {
         this.dish = dish;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         MenuItem menuItem = (MenuItem) o;
 
-        if (dish != null ? !dish.equals(menuItem.dish) : menuItem.dish != null) return false;
+        if (dish != null ? !dish.equals(menuItem.dish) : menuItem.dish != null) {
+            return false;
+        }
         return price != null ? price.equals(menuItem.price) : menuItem.price == null;
     }
 
@@ -60,9 +67,9 @@ public class MenuItem {
 
     @Override
     public String toString() {
-        return "MenuItem {" +
-                "dish=" + dish +
-                ", price=" + price +
-                '}';
+        return "MenuItem {"
+                + "dish=" + dish
+                + ", price=" + price
+                + '}';
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -132,9 +133,9 @@ public class MenuControllerTest extends AbstractControllerTest {
                 LocalDate.parse("2017-02-01"),
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH1, 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F),
-                        new MenuItem(DishTestData.DISH8, 10.55F)
+                        new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                        new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                 ));
 
         mockMvc.perform(put(REST_URL + MENU1_ID)
@@ -152,9 +153,9 @@ public class MenuControllerTest extends AbstractControllerTest {
                 LocalDate.parse("2017-02-01"),
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH1, 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F),
-                        new MenuItem(DishTestData.DISH8, 10.55F)
+                        new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                        new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                 ));
 
         mockMvc.perform(put(REST_URL + MENU1_ID)
@@ -170,9 +171,9 @@ public class MenuControllerTest extends AbstractControllerTest {
                 null,
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH1, 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F),
-                        new MenuItem(DishTestData.DISH8, 10.55F)
+                        new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                        new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                 ));
 
         mockMvc.perform(put(REST_URL + MENU1_ID)
@@ -189,9 +190,9 @@ public class MenuControllerTest extends AbstractControllerTest {
                 null,
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(new Dish("<script>alert(123)</script>"), 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F),
-                        new MenuItem(DishTestData.DISH8, 10.55F)
+                        new MenuItem(new Dish("<script>alert(123)</script>"), new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                        new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                 ));
 
         mockMvc.perform(put(REST_URL + MENU1_ID)
@@ -209,9 +210,9 @@ public class MenuControllerTest extends AbstractControllerTest {
                 LocalDate.parse("2017-02-03"),
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH1, 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F),
-                        new MenuItem(DishTestData.DISH8, 10.55F)
+                        new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                        new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                 ));
 
         ResultActions action = mockMvc.perform(post(REST_URL)
@@ -234,9 +235,9 @@ public class MenuControllerTest extends AbstractControllerTest {
                 null,
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH1, 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F),
-                        new MenuItem(DishTestData.DISH8, 10.55F)
+                        new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                        new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                 ));
 
         mockMvc.perform(post(REST_URL)
@@ -253,9 +254,9 @@ public class MenuControllerTest extends AbstractControllerTest {
                 LocalDate.parse("2017-02-03"),
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH1, 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F),
-                        new MenuItem(DishTestData.DISH8, 10.55F)
+                        new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85")),
+                        new MenuItem(DishTestData.DISH8, new BigDecimal("10.55"))
                 ));
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -270,8 +271,8 @@ public class MenuControllerTest extends AbstractControllerTest {
                 LocalDate.parse("2017-02-01"),
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH1, 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F)
+                        new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85"))
                 ));
         mockMvc.perform(put(REST_URL + MENU1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -287,8 +288,8 @@ public class MenuControllerTest extends AbstractControllerTest {
                 LocalDate.parse("2017-02-01"),
                 RestaurantTestData.RESTAURANT1,
                 Arrays.asList(
-                        new MenuItem(DishTestData.DISH1, 9.77F),
-                        new MenuItem(DishTestData.DISH2, 8.85F)
+                        new MenuItem(DishTestData.DISH1, new BigDecimal("9.77")),
+                        new MenuItem(DishTestData.DISH2, new BigDecimal("8.85"))
                 ));
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
