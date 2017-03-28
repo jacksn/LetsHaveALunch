@@ -53,8 +53,8 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGet() throws Exception {
-        Restaurant Restaurant = service.get(RESTAURANT1_ID);
-        MATCHER.assertEquals(RESTAURANT1, Restaurant);
+        Restaurant restaurant = service.get(RESTAURANT1_ID);
+        MATCHER.assertEquals(RESTAURANT1, restaurant);
     }
 
     @Test(expected = NotFoundException.class)

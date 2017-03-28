@@ -3,7 +3,7 @@ package by.jackson.letshavealunch.util;
 import by.jackson.letshavealunch.WithId;
 import by.jackson.letshavealunch.util.exception.NotFoundException;
 
-public class ValidationUtil {
+public final class ValidationUtil {
     private ValidationUtil() {
     }
 

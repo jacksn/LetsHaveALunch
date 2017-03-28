@@ -1,10 +1,10 @@
 package by.jackson.letshavealunch.matcher;
 
+import by.jackson.letshavealunch.TestUtil;
 import by.jackson.letshavealunch.web.json.JsonUtil;
 import org.junit.Assert;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
-import by.jackson.letshavealunch.TestUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -17,22 +17,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * GKislin
  * 06.01.2015.
- *
+ * <p>
  * This class wrap every entity by Wrapper before assertEquals in order to compare them by comparator
  * Default comparator compare by String.valueOf(entity)
  *
  * @param <T> : Entity
  */
-public class ModelMatcher<T> {
+public final class ModelMatcher<T> {
     private static final Comparator DEFAULT_COMPARATOR =
             (Object expected, Object actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual));
 
     private Comparator<T> comparator;
     private Class<T> entityClass;
-
-    public interface Comparator<T> {
-        boolean compare(T expected, T actual);
-    }
 
     private ModelMatcher(Class<T> entityClass) {
         this(entityClass, (Comparator<T>) DEFAULT_COMPARATOR);
@@ -49,27 +45,6 @@ public class ModelMatcher<T> {
 
     public static <T> ModelMatcher<T> of(Class<T> entityClass, Comparator<T> comparator) {
         return new ModelMatcher<>(entityClass, comparator);
-    }
-
-    private class Wrapper {
-        private T entity;
-
-        private Wrapper(T entity) {
-            this.entity = entity;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Wrapper that = (Wrapper) o;
-            return entity != null ? comparator.compare(entity, that.entity) : that.entity == null;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(entity);
-        }
     }
 
     private T fromJsonValue(String json) {
@@ -112,11 +87,11 @@ public class ModelMatcher<T> {
                 });
     }
 
-    public final ResultMatcher contentListMatcher(T... expected) {
+    public ResultMatcher contentListMatcher(T... expected) {
         return contentListMatcher(Arrays.asList(expected));
     }
 
-    public final ResultMatcher contentListMatcher(List<T> expected) {
+    public ResultMatcher contentListMatcher(List<T> expected) {
         return content().string(
                 new TestMatcher<List<T>>(expected) {
                     @Override
@@ -126,5 +101,35 @@ public class ModelMatcher<T> {
                         return expectedList.equals(actualList);
                     }
                 });
+    }
+
+    public interface Comparator<T> {
+        boolean compare(T expected, T actual);
+    }
+
+
+    private final class Wrapper {
+        private T entity;
+
+        private Wrapper(T entity) {
+            this.entity = entity;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Wrapper that = (Wrapper) o;
+            return entity != null ? comparator.compare(entity, that.entity) : that.entity == null;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(entity);
+        }
     }
 }

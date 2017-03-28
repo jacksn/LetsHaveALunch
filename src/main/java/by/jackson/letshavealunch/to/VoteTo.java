@@ -42,13 +42,21 @@ public class VoteTo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         VoteTo voteTo = (VoteTo) o;
 
-        if (voteCount != voteTo.voteCount) return false;
-        if (userVote != voteTo.userVote) return false;
+        if (voteCount != voteTo.voteCount) {
+            return false;
+        }
+        if (userVote != voteTo.userVote) {
+            return false;
+        }
         return restaurant != null ? restaurant.equals(voteTo.restaurant) : voteTo.restaurant == null;
     }
 
@@ -62,10 +70,10 @@ public class VoteTo {
 
     @Override
     public String toString() {
-        return "VoteTo{" +
-                "restaurant=" + restaurant +
-                ", voteCount=" + voteCount +
-                ", userVote=" + userVote +
-                '}';
+        return "VoteTo{"
+                + "restaurant=" + restaurant
+                + ", voteCount=" + voteCount
+                + ", userVote=" + userVote
+                + '}';
     }
 }

@@ -90,7 +90,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk());
-        MATCHER.assertCollectionEquals(Collections.singletonList(RESTAURANT2),service.getAll());
+        MATCHER.assertCollectionEquals(Collections.singletonList(RESTAURANT2), service.getAll());
     }
 
     @Test

@@ -4,7 +4,6 @@ import by.jackson.letshavealunch.UserTestData;
 import by.jackson.letshavealunch.model.Role;
 import by.jackson.letshavealunch.model.User;
 import by.jackson.letshavealunch.util.exception.NotFoundException;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

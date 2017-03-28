@@ -9,8 +9,20 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
@@ -81,11 +93,11 @@ public class User extends NamedEntity {
 
     @Override
     public String toString() {
-        return "User (" +
-                "id=" + getId() +
-                ", email=" + email +
-                ", name=" + name +
-                ", roles=" + roles +
-                ')';
+        return "User ("
+                + "id=" + getId()
+                + ", email=" + email
+                + ", name=" + getName()
+                + ", roles=" + roles
+                + ')';
     }
 }
