@@ -69,7 +69,7 @@ public class VoteServiceImpl implements VoteService {
         LocalDateTime dateTime = LocalDateTime.now();
 
         Vote vote = voteRepository.getByDateForUser(dateTime.toLocalDate(), userId);
-        if (dateTime.toLocalTime().isBefore(VOTING_END_TIME) && vote != null) {
+        if (dateTime.toLocalTime().isAfter(VOTING_END_TIME) && vote != null) {
             throw new VotingEndedException("Voting ended at " + VOTING_END_TIME);
         }
         if (vote == null) {
