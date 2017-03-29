@@ -1,4 +1,9 @@
 # Let's have a lunch!
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8a7ef2521d7d43d98e4f8fb1a6783853)](https://www.codacy.com/app/gml-jackson/LetsHaveALunch?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jacksn/LetsHaveALunch&amp;utm_campaign=Badge_Grade)
+[![Dependency Status](https://dependencyci.com/github/jacksn/LetsHaveALunch/badge)](https://dependencyci.com/github/jacksn/LetsHaveALunch)
+[![Build Status](https://travis-ci.org/jacksn/LetsHaveALunch.svg?branch=master)](https://travis-ci.org/jacksn/LetsHaveALunch)
+
 ### <a href="http://javawebinar.ru/topjava/">TopJava</a> graduation project.
 
 A voting system for deciding where to have lunch.
