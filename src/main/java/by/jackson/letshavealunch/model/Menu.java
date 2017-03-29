@@ -5,7 +5,15 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -74,14 +82,24 @@ public class Menu extends BaseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
 
         Menu menu = (Menu) o;
 
-        if (date != null ? !date.equals(menu.date) : menu.date != null) return false;
-        if (restaurant != null ? !restaurant.equals(menu.restaurant) : menu.restaurant != null) return false;
+        if (date != null ? !date.equals(menu.date) : menu.date != null) {
+            return false;
+        }
+        if (restaurant != null ? !restaurant.equals(menu.restaurant) : menu.restaurant != null) {
+            return false;
+        }
         return menuItems != null ? menuItems.equals(menu.menuItems) : menu.menuItems == null;
     }
 
@@ -96,11 +114,11 @@ public class Menu extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Menu {" +
-                "id = " + getId() +
-                ", date = " + date +
-                ", restaurant = " + restaurant.name +
-                ", menuItems = " + menuItems +
-                '}';
+        return "Menu {"
+                + "id = " + getId()
+                + ", date = " + date
+                + ", restaurant = " + restaurant.getName()
+                + ", menuItems = " + menuItems
+                + '}';
     }
 }
