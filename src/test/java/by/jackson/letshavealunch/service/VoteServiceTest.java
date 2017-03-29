@@ -12,6 +12,7 @@ import java.time.Month;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import static by.jackson.letshavealunch.UserTestData.ADMIN_ID;
 import static by.jackson.letshavealunch.UserTestData.USER;
 import static by.jackson.letshavealunch.UserTestData.USER_ID;
 import static by.jackson.letshavealunch.VoteTestData.*;
@@ -59,7 +60,7 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     public void testGetByDate() throws Exception {
         MATCHER_VOTE_TO.assertCollectionEquals(new HashSet<>(Arrays.asList(VOTE_TO_ADMIN_1, VOTE_TO_USER_1)),
-                service.getByDate(VOTE1.getDate(), USER_ID));
+                service.getByDate(VOTE1.getDate(), ADMIN_ID));
     }
 
     @Test(expected = IllegalArgumentException.class)
