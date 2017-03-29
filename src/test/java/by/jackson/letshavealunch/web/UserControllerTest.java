@@ -36,7 +36,7 @@ public class UserControllerTest extends AbstractControllerTest {
     @Test
     public void testGetNotFound() throws Exception {
         mockMvc.perform(get(REST_URL + 1)
-                .with(TestUtil.userHttpBasic(ADMIN)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }

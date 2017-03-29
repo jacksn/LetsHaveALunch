@@ -19,10 +19,6 @@ import java.util.List;
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-    }
-
-    @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new MappingJackson2HttpMessageConverter(getJacksonObjectMapper()));
     }

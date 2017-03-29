@@ -1,7 +1,6 @@
 package by.jackson.letshavealunch.web;
 
 import by.jackson.letshavealunch.DishTestData;
-import by.jackson.letshavealunch.MenuTestData;
 import by.jackson.letshavealunch.RestaurantTestData;
 import by.jackson.letshavealunch.model.Dish;
 import by.jackson.letshavealunch.model.Menu;
@@ -42,7 +41,7 @@ public class MenuControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentMatcher(MenuTestData.MENU1));
+                .andExpect(MATCHER.contentMatcher(MENU1));
     }
 
     @Test

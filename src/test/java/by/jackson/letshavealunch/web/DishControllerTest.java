@@ -1,6 +1,5 @@
 package by.jackson.letshavealunch.web;
 
-import by.jackson.letshavealunch.DishTestData;
 import by.jackson.letshavealunch.model.Dish;
 import by.jackson.letshavealunch.service.DishService;
 import by.jackson.letshavealunch.web.json.JsonUtil;
@@ -35,7 +34,7 @@ public class DishControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentMatcher(DishTestData.DISH1));
+                .andExpect(MATCHER.contentMatcher(DISH1));
     }
 
     @Test
