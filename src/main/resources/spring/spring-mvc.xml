@@ -23,7 +23,7 @@
     <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
         <property name="formatters">
             <set>
-                <bean class="by.jackson.letshavealunch.util.converter.DateTimeFormatters.LocalDateFormatter"/>
+                <bean class="by.jackson.letshavealunch.util.DateTimeUtil.LocalDateFormatter"/>
             </set>
         </property>
     </bean>
