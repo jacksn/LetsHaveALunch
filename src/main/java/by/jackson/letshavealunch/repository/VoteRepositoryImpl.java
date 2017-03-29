@@ -15,7 +15,6 @@ public class VoteRepositoryImpl implements VoteRepository {
     private CrudVoteRepository voteRepository;
 
     @Override
-    @Transactional
     public Vote save(Vote vote, int userId) {
         return voteRepository.save(vote);
     }
