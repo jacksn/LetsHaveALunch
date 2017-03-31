@@ -1,8 +1,7 @@
 package by.jackson.letshavealunch.web;
 
-import by.jackson.letshavealunch.model.Menu;
+import by.jackson.letshavealunch.model.Dish;
 import by.jackson.letshavealunch.model.Restaurant;
-import by.jackson.letshavealunch.service.MenuService;
 import by.jackson.letshavealunch.service.RestaurantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,15 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -38,9 +29,6 @@ public class RestaurantController {
 
     @Autowired
     private RestaurantService restaurantService;
-
-    @Autowired
-    private MenuService menuService;
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable("id") int id) {
@@ -83,14 +71,15 @@ public class RestaurantController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @GetMapping("/{id}/menus")
-    public List<Menu> getDishes(@PathVariable int id, @RequestParam(value = "date", required = false) LocalDate date) {
-        if (date != null) {
-            LOG.info("get menus by date = " + date + " and by restaurant with id = " + id);
-            return menuService.getByDateAndRestaurant(date, id);
-        } else {
-            LOG.info("get menus for restaurant with id = " + id);
-            return menuService.getByRestaurant(id);
-        }
+    @GetMapping("/{id}/dishes")
+    public List<Dish> getDishes(@PathVariable int id, @RequestParam(value = "date", required = false) LocalDate date) {
+//        if (date != null) {
+//            LOG.info("get menus by date = " + date + " and by restaurant with id = " + id);
+//            return menuService.getByDateAndRestaurant(date, id);
+//        } else {
+//            LOG.info("get menus for restaurant with id = " + id);
+//            return menuService.getByRestaurant(id);
+//        }
+        return null;
     }
 }

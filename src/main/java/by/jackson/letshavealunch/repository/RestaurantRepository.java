@@ -21,12 +21,4 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Override
     @Transactional
     Restaurant save(Restaurant restaurant);
-
-    @Override
-    Restaurant findOne(Integer id);
-
-    @Override
-    List<Restaurant> findAll(Sort sort);
-
-    Restaurant getByName(String name);
 }

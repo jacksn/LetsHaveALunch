@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 import static by.jackson.letshavealunch.RestaurantTestData.*;
 
@@ -42,7 +43,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     public void testDelete() throws Exception {
         service.delete(RESTAURANT1_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT2),
+        MATCHER.assertCollectionEquals(Collections.singletonList(RESTAURANT2),
                 service.getAll());
     }
 

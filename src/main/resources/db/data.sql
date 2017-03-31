@@ -1,8 +1,6 @@
 DELETE FROM votes;
-DELETE FROM menu_items;
-DELETE FROM menus;
-DELETE FROM restaurants;
 DELETE FROM dishes;
+DELETE FROM restaurants;
 DELETE FROM user_roles;
 DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
@@ -20,36 +18,21 @@ INSERT INTO restaurants (name) VALUES
   ('Charley G`s Seafood Grill'),      -- 100002
   ('Cibo`s Bistro & Pizzeria');       -- 100003
 
-INSERT INTO dishes (NAME) VALUES
-  ('Basted Paprika Pheasant'),                  -- 100004
-  ('Breaded Sour & Cream Quail'),               -- 100005
-  ('Cooked Dark Beer Winter Greens'),           -- 100006
-  ('Grilled Apricot & Basil Horse'),            -- 100007
-  ('Marinated Fennel & Lemon Forest Mushrooms'),-- 100008
-  ('Slow-Cooked Ginger Rabbit'),                -- 100009
-  ('Smoked Mint & Berry Crocodile'),            -- 100010
-  ('Thermal-Cooked Saffron & Shallot Salmon');  -- 100011
+INSERT INTO dishes (restaurant_id, name, price) VALUES
+  (100002, 'Basted Paprika Pheasant', 9.77),                    -- 100004
+  (100002, 'Breaded Sour & Cream Quail', 8.85),                 -- 100005
 
-INSERT INTO menus (restaurant_id, date ) VALUES
-  (100002, '2017-02-01'),   -- 100012
-  (100003, '2017-02-01'),   -- 100013
+  (100002, 'Grilled Apricot & Basil Horse', 13),                -- 100006
+  (100002, 'Cooked Dark Beer Winter Greens', 8.86),             -- 100007
 
-  (100002, '2017-02-02'),   -- 100014
-  (100003, '2017-02-02');   -- 100015
+  (100003, 'Marinated Fennel & Lemon Forest Mushrooms', 9.40),  -- 100008
+  (100003, 'Slow-Cooked Ginger Rabbit', 6.13),                  -- 100009
 
-INSERT INTO menu_items (menu_id, dish_id, price) VALUES
-  (100012, 100004, 9.77),
-  (100012, 100005, 8.85),
-  (100013, 100006, 13),
-  (100013, 100007, 8.86),
-
-  (100014, 100008, 9.40),
-  (100014, 100009, 6.13),
-  (100015, 100010, 6.15),
-  (100015, 100011, 8.35);
+  (100003, 'Smoked Mint & Berry Crocodile', 6.15),              -- 100010
+  (100003, 'Thermal-Cooked Saffron & Shallot Salmon', 8.35);    -- 100011
 
 INSERT INTO votes (date, user_id, restaurant_id) VALUES
-  ('2017-02-01', 100000, 100002), -- 100016 User  Restaurant_100002 Charley G`s Seafood Grill
-  ('2017-02-01', 100001, 100003), -- 100017 Admin Restaurant_100003 Cibo`s Bistro & Pizzeria
-  ('2017-02-02', 100000, 100003), -- 100018 User  Restaurant_100003 Cibo`s Bistro & Pizzeria
-  ('2017-02-02', 100001, 100003); -- 100019 Admin Restaurant_100003 Cibo`s Bistro & Pizzeria
+  ('2017-02-01', 100000, 100002), -- 100012 User  Restaurant_100002 Charley G`s Seafood Grill
+  ('2017-02-01', 100001, 100003), -- 100013 Admin Restaurant_100003 Cibo`s Bistro & Pizzeria
+  ('2017-02-02', 100000, 100003), -- 100014 User  Restaurant_100003 Cibo`s Bistro & Pizzeria
+  ('2017-02-02', 100001, 100003); -- 100015 Admin Restaurant_100003 Cibo`s Bistro & Pizzeria
