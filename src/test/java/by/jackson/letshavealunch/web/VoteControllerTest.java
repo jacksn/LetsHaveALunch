@@ -50,6 +50,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     @Test
     @Transactional
     public void testUpdateVote() throws Exception {
+        // TODO: add mock date
         assumeTrue(LocalTime.now().getHour() < 11);
         LocalDate date = LocalDate.now();
         Vote updated = new Vote(USER, RestaurantTestData.RESTAURANT2, date);

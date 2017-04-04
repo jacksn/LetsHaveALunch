@@ -44,6 +44,7 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     public void testUpdate() throws Exception {
+        // TODO: add mock date
         assumeTrue(LocalTime.now().getHour() < 11);
         LocalDate date = LocalDate.now();
         Vote updated = new Vote(USER_VOTE1_ID, USER, RestaurantTestData.RESTAURANT2, date);
