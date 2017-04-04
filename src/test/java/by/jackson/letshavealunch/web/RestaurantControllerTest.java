@@ -100,7 +100,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     @Test
     @Transactional
     public void testUpdate() throws Exception {
-        Restaurant updated = new Restaurant(RESTAURANT1_ID, "New name");
+        Restaurant updated = new Restaurant(RESTAURANT1_ID, "New name", RESTAURANT1_DISHES);
 
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -113,7 +113,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdateDenied() throws Exception {
-        Restaurant updated = new Restaurant(RESTAURANT1_ID, "New name");
+        Restaurant updated = new Restaurant(RESTAURANT1_ID, "New name", RESTAURANT1_DISHES);
 
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -124,7 +124,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdateInvalid() throws Exception {
-        Restaurant invalid = new Restaurant(RESTAURANT1_ID, "");
+        Restaurant invalid = new Restaurant(RESTAURANT1_ID, "", RESTAURANT1_DISHES);
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
@@ -135,7 +135,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdateHtmlUnsafe() throws Exception {
-        Restaurant invalid = new Restaurant(RESTAURANT1_ID, "<script>alert(123)</script>");
+        Restaurant invalid = new Restaurant(RESTAURANT1_ID, "<script>alert(123)</script>", RESTAURANT1_DISHES);
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
@@ -147,7 +147,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     @Test
     @Transactional
     public void testCreate() throws Exception {
-        Restaurant newRestaurant = new Restaurant("New restaurant");
+        Restaurant newRestaurant = new Restaurant("New restaurant", RESTAURANT2_DISHES);
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newRestaurant))
@@ -164,7 +164,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testCreateInvalid() throws Exception {
-        Restaurant invalid = new Restaurant("");
+        Restaurant invalid = new Restaurant("", null);
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
@@ -175,7 +175,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testCreateDenied() throws Exception {
-        Restaurant invalid = new Restaurant("New restaurant");
+        Restaurant invalid = new Restaurant("New restaurant", RESTAURANT2_DISHES);
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
@@ -195,7 +195,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdateDuplicate() throws Exception {
-        Restaurant duplicate = new Restaurant(RESTAURANT2.getName());
+        Restaurant duplicate = new Restaurant(RESTAURANT2.getName(), RESTAURANT2_DISHES);
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(duplicate))
@@ -206,7 +206,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testCreateDuplicate() throws Exception {
-        Restaurant invalid = new Restaurant(RESTAURANT2.getName());
+        Restaurant invalid = new Restaurant(RESTAURANT2.getName(), RESTAURANT2_DISHES);
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
