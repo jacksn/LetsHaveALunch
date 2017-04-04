@@ -1,5 +1,6 @@
 package by.jackson.letshavealunch.web;
 
+import by.jackson.letshavealunch.model.Dish;
 import by.jackson.letshavealunch.model.Restaurant;
 import by.jackson.letshavealunch.service.RestaurantService;
 import by.jackson.letshavealunch.web.json.JsonUtil;
@@ -9,8 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 import static by.jackson.letshavealunch.RestaurantTestData.*;
 import static by.jackson.letshavealunch.TestUtil.userHttpBasic;
@@ -102,6 +105,23 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     public void testUpdate() throws Exception {
         Restaurant updated = new Restaurant(RESTAURANT1_ID, "New name", RESTAURANT1_DISHES);
 
+        mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(updated))
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk());
+
+        assertEquals(updated, service.get(RESTAURANT1_ID));
+    }
+
+    @Test
+    @Transactional
+    public void testUpdateDishes() throws Exception {
+        Restaurant updated = new Restaurant(RESTAURANT1_ID, "New name", RESTAURANT1_DISHES);
+        updated.setDishes(new HashSet<>(Arrays.asList(
+                new Dish("New Dish 1", new BigDecimal("10.20")),
+                new Dish("New Dish 2", new BigDecimal("3.35"))
+        )));
         mockMvc.perform(put(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated))

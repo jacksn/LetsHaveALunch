@@ -86,6 +86,17 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    public void testUpdateDishes() throws Exception {
+        Restaurant updated = service.get(RESTAURANT1_ID);
+        updated.setDishes(new HashSet<>(Arrays.asList(
+                new Dish("New Dish 1", new BigDecimal("10.20")),
+                new Dish("New Dish 2", new BigDecimal("3.35"))
+        )));
+        service.update(updated);
+        MATCHER.assertEquals(updated, service.get(RESTAURANT1_ID));
+    }
+
+    @Test
     public void testValidation() throws Exception {
         validateRootCause(() -> service.save(new Restaurant("  ", RESTAURANT1_DISHES)), ConstraintViolationException.class);
         validateRootCause(() -> service.save(new Restaurant("New Restaurant", null)), ConstraintViolationException.class);
