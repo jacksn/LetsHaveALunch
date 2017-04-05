@@ -1,18 +1,21 @@
 package by.jackson.letshavealunch.model;
 
-import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Set;
 
-//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
-@Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "restaurants_unique_name_idx")})
+@Table(name = "restaurants")
 public class Restaurant extends NamedEntity {
 
     @NotEmpty
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "dishes", joinColumns = @JoinColumn(name = "restaurant_id"))
     @BatchSize(size = 20)
