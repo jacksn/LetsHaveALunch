@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +32,9 @@ public class VoteController {
     @Autowired
     private VoteService service;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<VoteTo> getVotes(@RequestParam(value = "date", required = false) LocalDate date) {
+    public Set<VoteTo> getVotesByDate(@RequestParam(value = "date") LocalDate date) {
         int userId = AuthorizedUser.id();
         if (date == null || !AuthorizedUser.get().getUser().getRoles().contains(Role.ROLE_ADMIN)) {
             date = LocalDate.now();
@@ -43,7 +46,14 @@ public class VoteController {
     @PostMapping("{restaurantId}")
     public void vote(@PathVariable Integer restaurantId) {
         int userId = AuthorizedUser.id();
+        LOG.info("create or update vote for restaurant with id = {} for User {}", restaurantId, userId);
         service.save(restaurantId, userId);
-        LOG.info("create or update vote for restaurant with id = {} for User {}", restaurantId, AuthorizedUser.get().getUser());
+    }
+
+    @DeleteMapping("{restaurantId}")
+    public void deleteVote(@PathVariable Integer restaurantId) {
+        int userId = AuthorizedUser.id();
+        LOG.info("create or update vote for restaurant with id = {} for User {}", restaurantId, userId);
+        service.delete(LocalDate.now(), userId);
     }
 }
