@@ -16,8 +16,7 @@ import static by.jackson.letshavealunch.UserTestData.*;
 import static by.jackson.letshavealunch.VoteTestData.MATCHER;
 import static by.jackson.letshavealunch.VoteTestData.*;
 import static org.junit.Assume.assumeTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -88,5 +87,22 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    @Transactional
+    public void testDeleteVote() throws Exception {
+        LocalDate date = LocalDate.now();
+        mockMvc.perform(post(REST_URL + RestaurantTestData.RESTAURANT1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isOk());
+        mockMvc.perform(delete(REST_URL + RestaurantTestData.RESTAURANT1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isOk());
+        MATCHER.assertEquals(null, service.getByDateAndUserId(date, USER_ID));
     }
 }
