@@ -19,7 +19,7 @@ import java.util.List;
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFound;
 import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     private static final Sort SORT_NAME_EMAIL = new Sort("name", "email");
 

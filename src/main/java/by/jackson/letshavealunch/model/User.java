@@ -18,7 +18,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -26,7 +25,7 @@ import java.util.Set;
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
+@Table(name = "users")
 public class User extends NamedEntity {
 
     @Column(name = "email", nullable = false, unique = true)
