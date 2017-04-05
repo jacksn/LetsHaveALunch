@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface VoteService {
 
-    Vote getByDateForUser(LocalDate date, int userId);
+    Vote getByDateAndUserId(LocalDate date, int userId);
 
     Set<VoteTo> getByDate(LocalDate date, int userId);
 

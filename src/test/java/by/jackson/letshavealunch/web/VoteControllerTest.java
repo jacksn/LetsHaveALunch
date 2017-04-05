@@ -12,9 +12,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import static by.jackson.letshavealunch.TestUtil.userHttpBasic;
-import static by.jackson.letshavealunch.UserTestData.ADMIN;
-import static by.jackson.letshavealunch.UserTestData.USER;
-import static by.jackson.letshavealunch.UserTestData.USER_ID;
+import static by.jackson.letshavealunch.UserTestData.*;
+import static by.jackson.letshavealunch.VoteTestData.MATCHER;
 import static by.jackson.letshavealunch.VoteTestData.*;
 import static org.junit.Assume.assumeTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -66,7 +65,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        MATCHER.assertEquals(updated, service.getByDateForUser(date, USER_ID));
+        MATCHER.assertEquals(updated, service.getByDateAndUserId(date, USER_ID));
     }
 
     @Test
@@ -79,7 +78,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER)))
                 .andDo(print())
                 .andExpect(status().isOk());
-        MATCHER.assertEquals(created, service.getByDateForUser(date, USER_ID));
+        MATCHER.assertEquals(created, service.getByDateAndUserId(date, USER_ID));
     }
 
     @Test

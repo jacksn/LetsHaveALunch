@@ -36,7 +36,7 @@ public class VoteServiceImpl implements VoteService {
     private UserRepository userRepository;
 
     @Override
-    public Vote getByDateForUser(LocalDate date, int userId) {
+    public Vote getByDateAndUserId(LocalDate date, int userId) {
         Assert.notNull(date, "date must not be null");
         return voteRepository.getByDateAndUserId(date, userId);
     }
@@ -83,6 +83,6 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public void delete(LocalDate date, int userId) {
-        checkNotFound(voteRepository.delete(date, userId) != 0, "vote on " + date);
+        checkNotFound(voteRepository.deleteByDateAndUserId(date, userId) != 0, "vote on " + date);
     }
 }
