@@ -78,11 +78,11 @@ public class VoteServiceImpl implements VoteService {
             vote.setRestaurant(restaurant);
         }
 
-        return voteRepository.save(vote, userId);
+        return voteRepository.save(vote);
     }
 
     @Override
     public void delete(LocalDate date, int userId) {
-        checkNotFound(voteRepository.delete(date, userId), "vote on " + date);
+        checkNotFound(voteRepository.delete(date, userId) != 0, "vote on " + date);
     }
 }
