@@ -21,6 +21,7 @@ Each restaurant provides new menu each day.
 
 Used tools, libraries and frameworks:
  <a href="http://maven.apache.org/">Maven</a>,
+ <a href="http://projects.spring.io/spring-boot/">Spring Boot</a>,
  <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
  <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
  <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
