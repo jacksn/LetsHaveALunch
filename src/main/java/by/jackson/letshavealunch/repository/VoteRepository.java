@@ -13,11 +13,10 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
-    @Query("SELECT v from Vote v WHERE v.date = :date")
-    List<Vote> getByDate(@Param("date") LocalDate date);
+    List<Vote> getByDate(LocalDate date);
 
     @Query("SELECT v from Vote v WHERE v.user.id = :userId AND v.date = :date")
-    Vote getByDateForUser(@Param("date") LocalDate date, @Param("userId") int userId);
+    Vote getByDateAndUserId(@Param("date") LocalDate date, @Param("userId") int userId);
 
     @Override
     @Transactional

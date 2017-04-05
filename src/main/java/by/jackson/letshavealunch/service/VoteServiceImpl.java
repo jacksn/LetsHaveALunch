@@ -38,7 +38,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote getByDateForUser(LocalDate date, int userId) {
         Assert.notNull(date, "date must not be null");
-        return voteRepository.getByDateForUser(date, userId);
+        return voteRepository.getByDateAndUserId(date, userId);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class VoteServiceImpl implements VoteService {
 
         LocalDateTime dateTime = LocalDateTime.now();
 
-        Vote vote = voteRepository.getByDateForUser(dateTime.toLocalDate(), userId);
+        Vote vote = voteRepository.getByDateAndUserId(dateTime.toLocalDate(), userId);
         if (dateTime.toLocalTime().isAfter(VOTING_END_TIME) && vote != null) {
             throw new VotingEndedException("Voting ended at " + VOTING_END_TIME);
         }
