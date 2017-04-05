@@ -37,9 +37,6 @@ public abstract class AbstractServiceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    @Autowired
-    public Environment env;
-
     @Rule
     // http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
     public Stopwatch stopwatch = new Stopwatch() {
