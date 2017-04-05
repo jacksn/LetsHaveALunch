@@ -31,7 +31,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id) != 0, id);
+        checkNotFoundWithId(repository.deleteById(id) != 0, id);
     }
 
     @Override

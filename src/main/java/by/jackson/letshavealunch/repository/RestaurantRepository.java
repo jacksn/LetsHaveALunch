@@ -12,8 +12,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Restaurant r WHERE r.id=:id")
-    int delete(@Param("id") int id);
+    int deleteById(int id);
 
     @Override
     @Transactional
