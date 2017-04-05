@@ -12,10 +12,10 @@ import java.util.List;
 
 @Transactional
 public interface UserRepository extends JpaRepository<User, Integer> {
+
     @Transactional
     @Modifying
-    @Query("DELETE FROM User u WHERE u.id=:id")
-    int delete(@Param("id") int id);
+    int deleteById(int id);
 
     @Override
     @Transactional
