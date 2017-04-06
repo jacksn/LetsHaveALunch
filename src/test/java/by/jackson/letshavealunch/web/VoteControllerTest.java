@@ -1,5 +1,6 @@
 package by.jackson.letshavealunch.web;
 
+import by.jackson.letshavealunch.AppConfig;
 import by.jackson.letshavealunch.RestaurantTestData;
 import by.jackson.letshavealunch.model.Vote;
 import by.jackson.letshavealunch.service.VoteService;
@@ -15,7 +16,6 @@ import static by.jackson.letshavealunch.TestUtil.userHttpBasic;
 import static by.jackson.letshavealunch.UserTestData.*;
 import static by.jackson.letshavealunch.VoteTestData.MATCHER;
 import static by.jackson.letshavealunch.VoteTestData.*;
-import static org.junit.Assume.assumeTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -27,6 +27,9 @@ public class VoteControllerTest extends AbstractControllerTest {
 
     @Autowired
     private VoteService service;
+
+    @Autowired
+    private AppConfig appConfig;
 
     @Test
     public void testGetByDate() throws Exception {
@@ -45,11 +48,26 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Test
     @Transactional
+    @Test
     public void testUpdateVote() throws Exception {
-        // TODO: add mock date
-        assumeTrue(LocalTime.now().getHour() < 11);
+        appConfig.setVotingEndTime(LocalTime.MAX);
+        mockMvc.perform(post(REST_URL + RestaurantTestData.RESTAURANT1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isOk());
+        mockMvc.perform(post(REST_URL + RestaurantTestData.RESTAURANT2_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Transactional
+    @Test
+    public void testUpdateVoteAfterVotingEnd() throws Exception {
+        appConfig.setVotingEndTime(LocalTime.MIN);
         LocalDate date = LocalDate.now();
         Vote updated = new Vote(USER, RestaurantTestData.RESTAURANT2, date);
         mockMvc.perform(post(REST_URL + RestaurantTestData.RESTAURANT1_ID)
@@ -62,9 +80,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER)))
                 .andDo(print())
-                .andExpect(status().isOk());
-
-        MATCHER.assertEquals(updated, service.getByDateAndUserId(date, USER_ID));
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

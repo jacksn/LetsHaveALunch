@@ -1,8 +1,10 @@
 package by.jackson.letshavealunch.service;
 
+import by.jackson.letshavealunch.AppConfig;
 import by.jackson.letshavealunch.RestaurantTestData;
 import by.jackson.letshavealunch.model.Vote;
 import by.jackson.letshavealunch.util.exception.NotFoundException;
+import by.jackson.letshavealunch.util.exception.VotingEndedException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,12 +17,14 @@ import java.util.HashSet;
 import static by.jackson.letshavealunch.UserTestData.*;
 import static by.jackson.letshavealunch.VoteTestData.MATCHER;
 import static by.jackson.letshavealunch.VoteTestData.*;
-import static org.junit.Assume.assumeTrue;
 
 public class VoteServiceTest extends AbstractServiceTest {
 
     @Autowired
     private VoteService service;
+
+    @Autowired
+    private AppConfig appConfig;
 
     @Test
     public void testDelete() throws Exception {
@@ -43,13 +47,19 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     public void testUpdate() throws Exception {
-        // TODO: add mock date
-        assumeTrue(LocalTime.now().getHour() < 11);
+        appConfig.setVotingEndTime(LocalTime.MAX);
         LocalDate date = LocalDate.now();
         Vote updated = new Vote(USER_VOTE1_ID, USER, RestaurantTestData.RESTAURANT2, date);
         service.save(RestaurantTestData.RESTAURANT1_ID, USER_ID);
         service.save(RestaurantTestData.RESTAURANT2_ID, USER_ID);
         MATCHER.assertEquals(updated, service.getByDateAndUserId(date, USER_ID));
+    }
+
+    @Test(expected = VotingEndedException.class)
+    public void testUpdateAfterVotingEnd() throws Exception {
+        appConfig.setVotingEndTime(LocalTime.MIN);
+        service.save(RestaurantTestData.RESTAURANT1_ID, USER_ID);
+        service.save(RestaurantTestData.RESTAURANT2_ID, USER_ID);
     }
 
     @Test
