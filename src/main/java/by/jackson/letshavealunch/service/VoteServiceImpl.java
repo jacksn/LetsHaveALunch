@@ -1,5 +1,6 @@
 package by.jackson.letshavealunch.service;
 
+import by.jackson.letshavealunch.AppConfig;
 import by.jackson.letshavealunch.model.Restaurant;
 import by.jackson.letshavealunch.model.Vote;
 import by.jackson.letshavealunch.repository.RestaurantRepository;
@@ -13,7 +14,6 @@ import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -24,7 +24,6 @@ import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteServiceImpl implements VoteService {
-    private static final LocalTime VOTING_END_TIME = LocalTime.of(11, 0, 0);
 
     @Autowired
     private VoteRepository voteRepository;
@@ -34,6 +33,9 @@ public class VoteServiceImpl implements VoteService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AppConfig appConfig;
 
     @Override
     public Vote getByDateAndUserId(LocalDate date, int userId) {
@@ -69,8 +71,8 @@ public class VoteServiceImpl implements VoteService {
         LocalDateTime dateTime = LocalDateTime.now();
 
         Vote vote = voteRepository.getByDateAndUserId(dateTime.toLocalDate(), userId);
-        if (dateTime.toLocalTime().isAfter(VOTING_END_TIME) && vote != null) {
-            throw new VotingEndedException("Voting ended at " + VOTING_END_TIME);
+        if (dateTime.toLocalTime().isAfter(appConfig.getVotingEndTime()) && vote != null) {
+            throw new VotingEndedException("Voting ended at " + appConfig.getVotingEndTime());
         }
         if (vote == null) {
             vote = new Vote(userRepository.getOne(userId), restaurant);
