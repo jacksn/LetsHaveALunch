@@ -29,8 +29,12 @@ public class VoteController {
 
     private static final Logger LOG = LoggerFactory.getLogger(VoteController.class);
 
-    @Autowired
     private VoteService service;
+
+    @Autowired
+    public VoteController(VoteService service) {
+        this.service = service;
+    }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

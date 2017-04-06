@@ -18,8 +18,12 @@ import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 public class RestaurantServiceImpl implements RestaurantService {
     private static final Sort SORT_NAME = new Sort("name");
 
-    @Autowired
     private RestaurantRepository repository;
+
+    @Autowired
+    public RestaurantServiceImpl(RestaurantRepository repository) {
+        this.repository = repository;
+    }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override

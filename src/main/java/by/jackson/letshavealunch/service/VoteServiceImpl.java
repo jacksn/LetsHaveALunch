@@ -25,17 +25,21 @@ import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class VoteServiceImpl implements VoteService {
 
-    @Autowired
     private VoteRepository voteRepository;
 
-    @Autowired
     private RestaurantRepository restaurantRepository;
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private AppConfig appConfig;
+
+    @Autowired
+    public VoteServiceImpl(VoteRepository voteRepository, RestaurantRepository restaurantRepository, UserRepository userRepository, AppConfig appConfig) {
+        this.voteRepository = voteRepository;
+        this.restaurantRepository = restaurantRepository;
+        this.userRepository = userRepository;
+        this.appConfig = appConfig;
+    }
 
     @Override
     public Vote getByDateAndUserId(LocalDate date, int userId) {

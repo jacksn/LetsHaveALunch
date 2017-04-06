@@ -23,8 +23,13 @@ import static by.jackson.letshavealunch.util.ValidationUtil.checkNotFoundWithId;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private static final Sort SORT_NAME_EMAIL = new Sort("name", "email");
 
-    @Autowired
     private UserRepository repository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
+    }
+
 
     @CacheEvict(value = "users", allEntries = true)
     @Override
