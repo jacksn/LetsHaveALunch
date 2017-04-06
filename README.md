@@ -35,3 +35,10 @@ Used tools, libraries and frameworks:
  <a href="http://junit.org/">JUnit</a>,
  <a href="http://hamcrest.org/JavaHamcrest/">Hamcrest</a>,
  <a href="http://tomcat.apache.org/">Apache Tomcat</a>.
+
+### REST API Developer Endpoint Reference
+| Endpoint    |     Base route      |
+|:----------- |:------------------- |
+| Users       | /api/v1/users       |
+| Restaurants | /api/v1/restaurants |
+| Votes       | /api/v1/votes       |
