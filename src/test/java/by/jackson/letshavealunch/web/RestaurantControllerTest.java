@@ -41,26 +41,6 @@ public class RestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(MATCHER.contentMatcher(RESTAURANT1));
     }
 
-//    @Test
-//    public void testGetMenus() throws Exception {
-//        mockMvc.perform(get(REST_URL + RESTAURANT1_ID + "/menus")
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isOk())
-//                .andDo(print())
-//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-//                .andExpect(MenuTestData.MATCHER.contentListMatcher(MENU3, MENU1));
-//    }
-//
-//    @Test
-//    public void testGetMenusByDate() throws Exception {
-//        mockMvc.perform(get(REST_URL + RESTAURANT1_ID + "/menus?date=" + MENU1.getDate())
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isOk())
-//                .andDo(print())
-//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-//                .andExpect(MenuTestData.MATCHER.contentListMatcher(MENU1));
-//    }
-
     @Test
     public void testGetUnauth() throws Exception {
         mockMvc.perform(get(REST_URL + RESTAURANT1_ID))
