@@ -57,6 +57,6 @@ create  `curl -s -S -u admin@gmail.com:admin -X POST -H "Content-Type: applicati
 update  `curl -s -S -u admin@gmail.com:admin -X PUT -H "Content-Type: application/json" -d '{"name": "New restaurant1", "dishes": [{"name": "New dish1", "price": "1.00"}]}' http://localhost:8080/api/v1/restaurants/100002`  
 delete  `curl -s -S -u admin@gmail.com:admin -X DELETE http://localhost:8080/api/v1/restaurants/100002`
 
-##### Any authenticated user can vote for any restaurant by id
+##### Any authenticated user can vote for any restaurant by id or delete the vote
 vote for restaurant with id 100002 `curl -s -S -u admin@gmail.com:admin -X POST http://localhost:8080/api/v1/votes/100002`
-    
+delete vote `curl -s -S -u admin@gmail.com:admin -X DELETE http://localhost:8080/api/v1/votes`
