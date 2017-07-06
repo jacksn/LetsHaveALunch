@@ -114,7 +114,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER)))
                 .andDo(print())
                 .andExpect(status().isOk());
-        mockMvc.perform(delete(REST_URL + RestaurantTestData.RESTAURANT1_ID)
+        mockMvc.perform(delete(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER)))
                 .andDo(print())
